@@ -1,7 +1,14 @@
 module.exports = {
   purge: ["./dist/*.html"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        darkGray: "#0D1014",
+      },
+      spacing: {
+        large: "1500px",
+      },
+    },
   },
   variants: {
     extend: {},
