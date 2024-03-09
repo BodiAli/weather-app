@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "weather";
+  src: url("./fonts/CfSnowballRegular-8xp2.ttf");
+}
+#logo {
+  font-family: "weather";
+}

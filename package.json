@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "weather-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "A professional and intuitive weather application",
   "main": "index.js",
   "scripts": {
     "start": "webpack --watch --config webpack.dev.js",
@@ -10,20 +10,21 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/BodiAli/weather-app.git"
   },
   "author": "Bodi Ali",
   "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/BodiAli/weather-app/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/BodiAli/weather-app#readme",
   "devDependencies": {
     "css-loader": "^6.10.0",
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "html-loader": "^5.0.0",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.7.7",
     "postcss-loader": "^8.1.0",
