@@ -19,9 +19,27 @@
       <div id="location-details" class="row-start-1 row-end-3 flex flex-col gap-2 justify-center">
         <h1 id="location" class="text-4xl font-medium">Cairo</h1>
         <p id="location-date" class="font-medium">Saturday, 9th Mar '24 4:08 am</p>
-        <h2 id="current-condition" class="text-2xl">Cloudy</h2>
-        <p id="current-temp" class="before:content-['Temp:_'] before:font-medium">22C</p>
-        <p id="current-feelslike" class="before:content-['Feels_Like:_'] before:font-medium">22.2C</p>
+        <div id="condition" class="flex items-center gap-1">
+          <h2 id="current-condition" class="text-2xl">Cloudy</h2>
+        </div>
+        <div class="flex items-center gap-1">
+          <img
+            src="images/temperature.svg"
+            alt="current temperature"
+            title="Temperature Icon"
+            class="size-6"
+          />
+          <p id="current-temp" class="before:content-['Temp:_'] before:font-medium">22°C</p>
+        </div>
+        <div class="flex items-center gap-1">
+          <img
+            src="images/feels-like.svg"
+            alt="current feels like temperature"
+            title="Feels Like Icon"
+            class="size-6"
+          />
+          <p id="current-feelslike" class="before:content-['Feels_Like:_'] before:font-medium">22.2C</p>
+        </div>
       </div>
       <div id="search" class="col-start-2 col-end-4 row-start-1 row-end-3">
         <h1 class="mb-1 font-medium">Search For Your Location:</h1>
@@ -37,16 +55,59 @@
         >
           Enter
         </button>
-        <p id="celsius">Celsius</p>
-        <p id="fahrenheit">Fahrenheit</p>
+        <p id="celsius">Celsius °C</p>
+        <p id="fahrenheit">Fahrenheit °F</p>
       </div>
       <div id="weather-details" class="row-start-1 row-end-3 flex flex-col gap-2">
-        <p id="humidity" class="before:content-['Humidity:_'] before:font-medium">30%</p>
-        <p id="current-wind-speend" class="before:content-['Wind_Speed:_'] before:font-medium">20kmh</p>
-        <p id="gust" class="before:content-['Gust:_'] before:font-medium">27.4mkh</p>
-        <p id="current-max-temp" class="before:content-['Max_Temp:_'] before:font-medium">22.4C</p>
-        <p id="current-min-temp" class="before:content-['Min_Temp:_'] before:font-medium">13.4C</p>
-        <p id="current-rain-chance" class="before:content-['Chance_Of_Rain:_'] before:font-medium">12%</p>
+        <div class="flex items-center gap-2">
+          <img
+            src="images/humidity.svg"
+            alt="current humidity percentage"
+            title="Humidity Percentage Icon"
+            class="size-7"
+          />
+          <p id="humidity" class="before:content-['Humidity:_'] before:font-medium">30%</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <img
+            src="images/wind-speed.svg"
+            alt="current wind speed"
+            title="Wind Speed Icon"
+            class="size-7"
+          />
+          <p id="current-wind-speend" class="before:content-['Wind_Speed:_'] before:font-medium">20kmh</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <img src="images/gust.svg" alt="current gust" title="Gust Icon" class="size-7" />
+          <p id="gust" class="before:content-['Gust:_'] before:font-medium">27.4mkh</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <img
+            src="images/max-temp.svg"
+            alt="current max temp"
+            title="Max Temperature Icon"
+            class="size-7"
+          />
+          <p id="current-max-temp" class="before:content-['Max_Temp:_'] before:font-medium">22.4C</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <img
+            src="images/min-temp.svg"
+            alt="current min temp"
+            title="Min Temperature Icon"
+            class="size-7"
+          />
+          <p id="current-min-temp" class="before:content-['Min_Temp:_'] before:font-medium">13.4C</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <img
+            src="images/rain.svg"
+            alt="current rain percentage"
+            title="Rain Percentage Icon"
+            class="size-7"
+          />
+          <p id="current-rain-chance" class="before:content-['Chance_Of_Rain:_'] before:font-medium">12%</p>
+        </div>
       </div>
       <div
         id="cards"
