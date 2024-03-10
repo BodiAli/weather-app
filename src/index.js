@@ -67,6 +67,28 @@ linktag();
   const enterButton = document.getElementById("enter");
   const celsiusButton = document.getElementById("celsius");
   const fahrenheitButton = document.getElementById("fahrenheit");
+  const humidityDiv = document.getElementById("humidity-div");
+  const windSpeedDiv = document.getElementById("wind-speed-div");
+  const gustDiv = document.getElementById("gust-div");
+  const maxTempDiv = document.getElementById("max-temp-div");
+  const minTempDiv = document.getElementById("min-temp-div");
+  const rainPercentDiv = document.getElementById("rain-percent-div");
+  const humidity = document.getElementById("humidity");
+  const currentWindSpeed = document.getElementById("current-wind-speed");
+  const gust = document.getElementById("gust");
+  const currentMaxTemp = document.getElementById("current-max-temp");
+  const currentMinTemp = document.getElementById("current-min-temp");
+  const currentRainPercent = document.getElementById("current-rain-chance");
+  const tommorowMaxTemp = document.getElementById("tommorow-max-temp");
+  const tommorowMinTemp = document.getElementById("tommorow-min-temp");
+  const tommorowWindSpeed = document.getElementById("tommorow-wind-speed");
+  const tommorowRainChance = document.getElementById("tommorow-rain-chance");
+  const tommorowDay = document.getElementById("tommorow-day");
+  const afterTommorowDay = document.getElementById("after-day");
+  const afterTommorowMaxTemp = document.getElementById("after-max-temp");
+  const afterTommoroMinTemp = document.getElementById("after-min-temp");
+  const afterTommorowWindSpeed = document.getElementById("after-wind-speed");
+  const afterTommorowRainChance = document.getElementById("after-rain-chance");
   const conditionDiv = document.getElementById("condition");
   const conditionImg = document.createElement("img");
   const currentFeelsLikeIcon = document.getElementById("current-feelslike-icon");
@@ -123,6 +145,23 @@ linktag();
         conditionImg.classList.replace("opacity-100", "opacity-0");
         currentFeelsLikeIcon.classList.replace("opacity-100", "opacity-0");
         currentTemperatureIcon.classList.replace("opacity-100", "opacity-0");
+        humidityDiv.classList.replace("opacity-100", "opacity-0");
+        windSpeedDiv.classList.replace("opacity-100", "opacity-0");
+        gustDiv.classList.replace("opacity-100", "opacity-0");
+        maxTempDiv.classList.replace("opacity-100", "opacity-0");
+        minTempDiv.classList.replace("opacity-100", "opacity-0");
+        rainPercentDiv.classList.replace("opacity-100", "opacity-0");
+        tommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
+        tommorowMinTemp.classList.replace("opacity-100", "opacity-0");
+        tommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
+        tommorowRainChance.classList.replace("opacity-100", "opacity-0");
+        tommorowDay.classList.replace("opacity-100", "opacity-0");
+        afterTommorowDay.classList.replace("opacity-100", "opacity-0");
+        afterTommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
+        afterTommoroMinTemp.classList.replace("opacity-100", "opacity-0");
+        afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
+        afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
+        console.log(data);
         celsiusButton.addEventListener("click", function () {
           celsiusClicked = true;
           if (celsiusClicked) {
@@ -155,14 +194,13 @@ linktag();
           }
         });
 
-        if (currentData.condition.code === 1000 && currentData.condition.text === "Clear") {
+        if (currentData.condition.code === 1000 && currentData.condition.text.trim() === "Clear") {
           conditionImg.src = clear;
           setTimeout(() => {
             conditionImg.classList.replace("opacity-0", "opacity-100");
-
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
-        } else if (currentData.condition.code === 1000 && currentData.condition.text === "Sunny") {
+        } else if (currentData.condition.code === 1000 && currentData.condition.text.trim() === "Sunny") {
           conditionImg.src = sunny;
           setTimeout(() => {
             conditionImg.classList.replace("opacity-0", "opacity-100");
@@ -190,7 +228,7 @@ linktag();
 
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
-        } else if (currentCondition.condition.code === 1030) {
+        } else if (currentData.condition.code === 1030) {
           conditionImg.src = mist;
           setTimeout(() => {
             conditionImg.classList.replace("opacity-0", "opacity-100");
@@ -198,12 +236,12 @@ linktag();
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
         } else if (
-          currentCondition.condition.code === 1053 ||
-          currentCondition.condition.code === 1183 ||
-          currentCondition.condition.code === 1089 ||
-          currentCondition.condition.code === 1240 ||
-          currentCondition.condition.code === 1249 ||
-          currentCondition.condition.code === 1153
+          currentData.condition.code === 1053 ||
+          currentData.condition.code === 1183 ||
+          currentData.condition.code === 1089 ||
+          currentData.condition.code === 1240 ||
+          currentData.condition.code === 1249 ||
+          currentData.condition.code === 1153
         ) {
           conditionImg.src = lightRain;
           setTimeout(() => {
@@ -212,10 +250,10 @@ linktag();
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
         } else if (
-          currentCondition.condition.code === 1066 ||
-          currentCondition.condition.code === 1072 ||
-          currentCondition.condition.code === 1210 ||
-          currentCondition.condition.code === 1216
+          currentData.condition.code === 1066 ||
+          currentData.condition.code === 1072 ||
+          currentData.condition.code === 1210 ||
+          currentData.condition.code === 1216
         ) {
           conditionImg.src = possibleSnow;
           setTimeout(() => {
@@ -224,10 +262,10 @@ linktag();
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
         } else if (
-          currentCondition.condition.code === 1063 ||
-          currentCondition.condition.code === 1150 ||
-          currentCondition.condition.code === 1180 ||
-          currentCondition.condition.code === 1186
+          currentData.condition.code === 1063 ||
+          currentData.condition.code === 1150 ||
+          currentData.condition.code === 1180 ||
+          currentData.condition.code === 1186
         ) {
           conditionImg.src = possibleRain;
           setTimeout(() => {
@@ -235,7 +273,7 @@ linktag();
 
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
-        } else if (currentCondition.condition.code === 1069 || currentCondition.condition.code === 1204) {
+        } else if (currentData.condition.code === 1069 || currentData.condition.code === 1204) {
           conditionImg.src = possibleSleet;
           setTimeout(() => {
             conditionImg.classList.replace("opacity-0", "opacity-100");
@@ -243,12 +281,12 @@ linktag();
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
         } else if (
-          currentCondition.condition.code === 1087 ||
-          currentCondition.condition.code === 1117 ||
-          currentCondition.condition.code === 1273 ||
-          currentCondition.condition.code === 1276 ||
-          currentCondition.condition.code === 1279 ||
-          currentCondition.condition.code === 1282
+          currentData.condition.code === 1087 ||
+          currentData.condition.code === 1117 ||
+          currentData.condition.code === 1273 ||
+          currentData.condition.code === 1276 ||
+          currentData.condition.code === 1279 ||
+          currentData.condition.code === 1282
         ) {
           conditionImg.src = blizzard;
           setTimeout(() => {
@@ -257,15 +295,15 @@ linktag();
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
         } else if (
-          currentCondition.condition.code === 1246 ||
-          currentCondition.condition.code === 1171 ||
-          currentCondition.condition.code === 1189 ||
-          currentCondition.condition.code === 1192 ||
-          currentCondition.condition.code === 1195 ||
-          currentCondition.condition.code === 1201 ||
-          currentCondition.condition.code === 1207 ||
-          currentCondition.condition.code === 1243 ||
-          currentCondition.condition.code === 1252
+          currentData.condition.code === 1246 ||
+          currentData.condition.code === 1171 ||
+          currentData.condition.code === 1189 ||
+          currentData.condition.code === 1192 ||
+          currentData.condition.code === 1195 ||
+          currentData.condition.code === 1201 ||
+          currentData.condition.code === 1207 ||
+          currentData.condition.code === 1243 ||
+          currentData.condition.code === 1252
         ) {
           conditionImg.src = heavyRain;
           setTimeout(() => {
@@ -273,7 +311,7 @@ linktag();
 
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
-        } else if (currentCondition.condition.code === 1135 || currentCondition.condition.code === 1147) {
+        } else if (currentData.condition.code === 1135 || currentData.condition.code === 1147) {
           conditionImg.src = fog;
           setTimeout(() => {
             conditionImg.classList.replace("opacity-0", "opacity-100");
@@ -281,10 +319,10 @@ linktag();
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
         } else if (
-          currentCondition.condition.code === 1168 ||
-          currentCondition.condition.code === 1198 ||
-          currentCondition.condition.code === 1213 ||
-          currentCondition.condition.code === 1255
+          currentData.condition.code === 1168 ||
+          currentData.condition.code === 1198 ||
+          currentData.condition.code === 1213 ||
+          currentData.condition.code === 1255
         ) {
           conditionImg.src = lightSnow;
           setTimeout(() => {
@@ -293,14 +331,14 @@ linktag();
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
         } else if (
-          currentCondition.condition.code === 1114 ||
-          currentCondition.condition.code === 1219 ||
-          currentCondition.condition.code === 1222 ||
-          currentCondition.condition.code === 1225 ||
-          currentCondition.condition.code === 1237 ||
-          currentCondition.condition.code === 1258 ||
-          currentCondition.condition.code === 1261 ||
-          currentCondition.condition.code === 1264
+          currentData.condition.code === 1114 ||
+          currentData.condition.code === 1219 ||
+          currentData.condition.code === 1222 ||
+          currentData.condition.code === 1225 ||
+          currentData.condition.code === 1237 ||
+          currentData.condition.code === 1258 ||
+          currentData.condition.code === 1261 ||
+          currentData.condition.code === 1264
         ) {
           conditionImg.src = heavySnow;
           setTimeout(() => {
@@ -334,6 +372,66 @@ linktag();
         }, 300);
         setTimeout(() => {
           currentTemperatureIcon.classList.replace("opacity-0", "opacity-100");
+        }, 300);
+        setTimeout(() => {
+          humidityDiv.classList.replace("opacity-0", "opacity-100");
+          humidity.textContent = `${currentData.humidity}%`;
+        }, 300);
+        setTimeout(() => {
+          windSpeedDiv.classList.replace("opacity-0", "opacity-100");
+          currentWindSpeed.textContent = `${currentData.wind_kph}km/h`;
+        }, 300);
+        setTimeout(() => {
+          gustDiv.classList.replace("opacity-0", "opacity-100");
+          gust.textContent = `${currentData.gust_kph}km/h`;
+        }, 300);
+        setTimeout(() => {
+          maxTempDiv.classList.replace("opacity-0", "opacity-100");
+          currentMaxTemp.textContent = `${data.forecast.forecastday[0].day.maxtemp_c}°C`;
+        }, 300);
+        setTimeout(() => {
+          minTempDiv.classList.replace("opacity-0", "opacity-100");
+          currentMinTemp.textContent = `${data.forecast.forecastday[0].day.mintemp_c}°C`;
+        }, 300);
+        setTimeout(() => {
+          rainPercentDiv.classList.replace("opacity-0", "opacity-100");
+          currentRainPercent.textContent = `${data.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+        }, 300);
+        setTimeout(() => {
+          tommorowDay.classList.replace("opacity-0", "opacity-100");
+        }, 300);
+        setTimeout(() => {
+          tommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
+          tommorowMaxTemp.textContent = `${data.forecast.forecastday[1].day.maxtemp_c}°C`;
+        }, 300);
+        setTimeout(() => {
+          tommorowMinTemp.classList.replace("opacity-0", "opacity-100");
+          tommorowMinTemp.textContent = `${data.forecast.forecastday[1].day.mintemp_c}°C`;
+        }, 300);
+        setTimeout(() => {
+          tommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
+          tommorowWindSpeed.textContent = `${data.forecast.forecastday[1].day.maxwind_kph}km/h`;
+        }, 300);
+        setTimeout(() => {
+          tommorowRainChance.classList.replace("opacity-0", "opacity-100");
+          tommorowRainChance.textContent = `${data.forecast.forecastday[1].day.daily_chance_of_rain}%`;
+        }, 300);
+        setTimeout(() => {}, 300);
+        setTimeout(() => {
+          afterTommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
+          afterTommorowMaxTemp.textContent = `${data.forecast.forecastday[2].day.maxtemp_c}°C`;
+        }, 300);
+        setTimeout(() => {
+          afterTommoroMinTemp.classList.replace("opacity-0", "opacity-100");
+          afterTommoroMinTemp.textContent = `${data.forecast.forecastday[2].day.mintemp_c}°C`;
+        }, 300);
+        setTimeout(() => {
+          afterTommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
+          afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_kph}km/h`;
+        }, 300);
+        setTimeout(() => {
+          afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
+          afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
         }, 300);
       } catch (error) {
         console.log(error);
