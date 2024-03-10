@@ -9,3 +9,6 @@
 #logo {
   font-family: "weather";
 }
+#cards::-webkit-scrollbar {
+  display: none;
+}
