@@ -18,6 +18,12 @@ import possibleSleet from "./images/possible-sleet.svg";
 import possibleSnow from "./images/possible-snow.svg";
 
 linktag();
+const today = new Date();
+
+const yesterday = new Date(today);
+yesterday.setDate(today.getDate() - 1);
+
+const formattedYesterdayDate = yesterday.toISOString().split("T")[0];
 
 (function () {
   function formatDate(inputDate) {
@@ -51,6 +57,13 @@ linktag();
 
     return formattedDate;
   }
+  const today = new Date();
+
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+
+  const formattedYesterdayDate = yesterday.toISOString().split("T")[0];
+  let hourlyClicked = false;
   let celsiusClicked = true;
   let fahrenheitClicked = false;
   const dailyCards = document.querySelectorAll(".card");
@@ -86,9 +99,75 @@ linktag();
   const tommorowDay = document.getElementById("tommorow-day");
   const afterTommorowDay = document.getElementById("after-day");
   const afterTommorowMaxTemp = document.getElementById("after-max-temp");
-  const afterTommoroMinTemp = document.getElementById("after-min-temp");
+  const afterTommorowMinTemp = document.getElementById("after-min-temp");
   const afterTommorowWindSpeed = document.getElementById("after-wind-speed");
   const afterTommorowRainChance = document.getElementById("after-rain-chance");
+  const after2TommorowDay = document.getElementById("after2-day");
+  const after2TommorowMaxTemp = document.getElementById("after2-max-temp");
+  const after2TommorowMinTemp = document.getElementById("after2-min-temp");
+  const after2TommorowWindSpeed = document.getElementById("after2-wind-speed");
+  const after2TommorowRainChance = document.getElementById("after2-rain-chance");
+  const yesterdayDay = document.getElementById("yesterday-day");
+  const yesterdayMaxTemp = document.getElementById("yesterday-max-temp");
+  const yesterdayMinTemp = document.getElementById("yesterday-min-temp");
+  const yesterdayWindSpeed = document.getElementById("yesterday-wind-speed");
+  const yesterdayRainChance = document.getElementById("yesterday-rain-chance");
+  const sixAMHour = document.getElementById("6am");
+  const eightAMHour = document.getElementById("8am");
+  const tenAMHour = document.getElementById("10am");
+  const twelvePMHour = document.getElementById("12pm");
+  const twoPMHour = document.getElementById("2pm");
+  const fourPMHour = document.getElementById("4pm");
+  const sixPMHour = document.getElementById("6pm");
+  const eightPMHour = document.getElementById("8pm");
+  const tenPMHour = document.getElementById("10pm");
+  const twelveAMHour = document.getElementById("12am");
+  const twoAMHour = document.getElementById("2am");
+  const fourAMHour = document.getElementById("4am");
+  const sixAMMaxTemp = document.getElementById("6am-max-temp")
+  const sixAMMinTemp = document.getElementById("6am-min-temp")
+  const sixAMWindSpeed = document.getElementById("6am-wind-speed")
+  const sixAMRainChance = document.getElementById("6am-rain-chance")
+  const eightAMMaxTemp = document.getElementById("8am-max-temp")
+  const eightAMMinTemp = document.getElementById("8am-min-temp")
+  const eightAMWindSpeed = document.getElementById("8am-wind-speed")
+  const eightAMRainChance = document.getElementById("8am-rain-chance")
+  const tenAMMaxTemp = document.getElementById("10am-max-temp")
+  const tenAMMinTemp = document.getElementById("10am-min-temp")
+  const tenAMWindSpeed = document.getElementById("10am-wind-speed")
+  const tenAMRainChance = document.getElementById("10am-rain-chance")
+  const twoPMMaxTemp = document.getElementById("2pm-max-temp")
+  const twoPMMinTemp = document.getElementById("2pm-min-temp")
+  const twoPMWindSpeed = document.getElementById("2pm-wind-speed")
+  const twoPMRainChance = document.getElementById("2pm-rain-chance")
+  const fourPMMaxTemp = document.getElementById("4pm-max-temp")
+  const fourPMMinTemp = document.getElementById("4pm-min-temp")
+  const fourPMWindSpeed = document.getElementById("4pm-wind-speed")
+  const fourPMRainChance = document.getElementById("4pm-rain-chance")
+  const sixAMMaxTemp = document.getElementById("6pm-max-temp")
+  const sixAMMaxTemp = document.getElementById("6pm-min-temp")
+  const sixAMMaxTemp = document.getElementById("6pm-wind-speed")
+  const sixAMMaxTemp = document.getElementById("6pm-rain-chance")
+  const sixAMMaxTemp = document.getElementById("8pm-max-temp")
+  const sixAMMaxTemp = document.getElementById("8pm-min-temp")
+  const sixAMMaxTemp = document.getElementById("8pm-wind-speed")
+  const sixAMMaxTemp = document.getElementById("8pm-rain-chance")
+  const sixAMMaxTemp = document.getElementById("10pm-max-temp")
+  const sixAMMaxTemp = document.getElementById("10pm-min-temp")
+  const sixAMMaxTemp = document.getElementById("10pm-wind-speed")
+  const sixAMMaxTemp = document.getElementById("10pm-rain-chance")
+  const sixAMMaxTemp = document.getElementById("12am-max-temp")
+  const sixAMMaxTemp = document.getElementById("12am-min-temp")
+  const sixAMMaxTemp = document.getElementById("12am-wind-speed")
+  const sixAMMaxTemp = document.getElementById("12am-rain-chance")
+  const sixAMMaxTemp = document.getElementById("2am-max-temp")
+  const sixAMMaxTemp = document.getElementById("2am-min-temp")
+  const sixAMMaxTemp = document.getElementById("2am-wind-speed")
+  const sixAMMaxTemp = document.getElementById("2am-rain-chance")
+  const sixAMMaxTemp = document.getElementById("4am-max-temp")
+  const sixAMMaxTemp = document.getElementById("4am-min-temp")
+  const sixAMMaxTemp = document.getElementById("4am-wind-speed")
+  const sixAMMaxTemp = document.getElementById("4am-rain-chance")
   const conditionDiv = document.getElementById("condition");
   const conditionImg = document.createElement("img");
   const currentFeelsLikeIcon = document.getElementById("current-feelslike-icon");
@@ -100,6 +179,7 @@ linktag();
   conditionImg.classList.add("opacity-0");
 
   hourlyButton.addEventListener("click", () => {
+    hourlyClicked = true;
     cards.classList.remove("daily");
     cards.classList.add("gap-10");
     cards.classList.add("hourly");
@@ -108,12 +188,14 @@ linktag();
       card.classList.remove("hidden");
       card.classList.remove("hover:scale-105");
       card.classList.add("hover:bg-slate-900");
+      card.classList.add("flex");
     });
     dailyCards.forEach((card) => {
       card.classList.remove("flex");
       card.classList.add("hidden");
     });
     dailyButton.addEventListener("click", () => {
+      hourlyClicked = false;
       cards.classList.remove("hourly");
       cards.classList.remove("gap-10");
       cards.classList.add("daily");
@@ -132,10 +214,17 @@ linktag();
   async function getWeather(ev) {
     if ((ev.type === "keydown" && ev.keyCode === 13 && searchInput.value !== "") || ev.type === "click") {
       try {
-        const responseCurrent = await fetch(
-          `http://api.weatherapi.com/v1/forecast.json?days=4&key=4062a6c99201445190e72941240103&q=${searchInput.value}`
-        );
-        const data = await responseCurrent.json();
+        const responseCurrent = await Promise.all([
+          fetch(
+            `http://api.weatherapi.com/v1/history.json?dt=${formattedYesterdayDate}&key=4062a6c99201445190e72941240103&q=${searchInput.value}`
+          ),
+          fetch(
+            `http://api.weatherapi.com/v1/forecast.json?days=4&key=4062a6c99201445190e72941240103&q=${searchInput.value}`
+          ),
+        ]);
+        const historyData = await responseCurrent[0].json();
+        const data = await responseCurrent[1].json();
+        console.log(historyData);
         const currentData = data.current;
         currentTemperature.classList.replace("opacity-100", "opacity-0");
         location.classList.replace("opacity-100", "opacity-0");
@@ -158,9 +247,32 @@ linktag();
         tommorowDay.classList.replace("opacity-100", "opacity-0");
         afterTommorowDay.classList.replace("opacity-100", "opacity-0");
         afterTommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
-        afterTommoroMinTemp.classList.replace("opacity-100", "opacity-0");
+        afterTommorowMinTemp.classList.replace("opacity-100", "opacity-0");
         afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
         afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
+        after2TommorowDay.classList.replace("opacity-100", "opacity-0");
+        after2TommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
+        after2TommorowMinTemp.classList.replace("opacity-100", "opacity-0");
+        after2TommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
+        after2TommorowRainChance.classList.replace("opacity-100", "opacity-0");
+        yesterdayDay.classList.replace("opacity-100", "opacity-0");
+        yesterdayMaxTemp.classList.replace("opacity-100", "opacity-0");
+        yesterdayMinTemp.classList.replace("opacity-100", "opacity-0");
+        yesterdayWindSpeed.classList.replace("opacity-100", "opacity-0");
+        yesterdayRainChance.classList.replace("opacity-100", "opacity-0");
+        sixAMHour.classList.replace("opacity-100", "opacity-0");
+        eightAMHour.classList.replace("opacity-100", "opacity-0");
+        tenAMHour.classList.replace("opacity-100", "opacity-0");
+        twelvePMHour.classList.replace("opacity-100", "opacity-0");
+        twoPMHour.classList.replace("opacity-100", "opacity-0");
+        fourPMHour.classList.replace("opacity-100", "opacity-0");
+        sixPMHour.classList.replace("opacity-100", "opacity-0");
+        eightPMHour.classList.replace("opacity-100", "opacity-0");
+        tenPMHour.classList.replace("opacity-100", "opacity-0");
+        twelveAMHour.classList.replace("opacity-100", "opacity-0");
+        twoAMHour.classList.replace("opacity-100", "opacity-0");
+        fourAMHour.classList.replace("opacity-100", "opacity-0");
+
         console.log(data);
         celsiusButton.addEventListener("click", function () {
           celsiusClicked = true;
@@ -350,88 +462,85 @@ linktag();
         setTimeout(() => {
           location.classList.replace("opacity-0", "opacity-100");
           location.textContent = `${data.location.country} ${data.location.region}`;
-        }, 300);
-        setTimeout(() => {
+
           locationDate.classList.replace("opacity-0", "opacity-100");
           locationDate.textContent = `${formatDate(data.location.localtime)}`;
-        }, 300);
-        setTimeout(() => {
+
           currentCondition.classList.replace("opacity-0", "opacity-100");
           currentCondition.textContent = currentData.condition.text;
-        }, 300);
-        setTimeout(() => {
+
           currentTemperature.classList.replace("opacity-0", "opacity-100");
           currentTemperature.textContent = `${currentData.temp_c}°C`;
-        }, 300);
-        setTimeout(() => {
           currentFeelsLike.classList.replace("opacity-0", "opacity-100");
           currentFeelsLike.textContent = `${currentData.feelslike_c}°C`;
-        }, 300);
-        setTimeout(() => {
+
           currentFeelsLikeIcon.classList.replace("opacity-0", "opacity-100");
-        }, 300);
-        setTimeout(() => {
+
           currentTemperatureIcon.classList.replace("opacity-0", "opacity-100");
-        }, 300);
-        setTimeout(() => {
+
           humidityDiv.classList.replace("opacity-0", "opacity-100");
           humidity.textContent = `${currentData.humidity}%`;
-        }, 300);
-        setTimeout(() => {
+
           windSpeedDiv.classList.replace("opacity-0", "opacity-100");
           currentWindSpeed.textContent = `${currentData.wind_kph}km/h`;
-        }, 300);
-        setTimeout(() => {
+
           gustDiv.classList.replace("opacity-0", "opacity-100");
           gust.textContent = `${currentData.gust_kph}km/h`;
-        }, 300);
-        setTimeout(() => {
           maxTempDiv.classList.replace("opacity-0", "opacity-100");
           currentMaxTemp.textContent = `${data.forecast.forecastday[0].day.maxtemp_c}°C`;
-        }, 300);
-        setTimeout(() => {
+
           minTempDiv.classList.replace("opacity-0", "opacity-100");
           currentMinTemp.textContent = `${data.forecast.forecastday[0].day.mintemp_c}°C`;
-        }, 300);
-        setTimeout(() => {
+
           rainPercentDiv.classList.replace("opacity-0", "opacity-100");
           currentRainPercent.textContent = `${data.forecast.forecastday[0].day.daily_chance_of_rain}%`;
-        }, 300);
-        setTimeout(() => {
+
           tommorowDay.classList.replace("opacity-0", "opacity-100");
-        }, 300);
-        setTimeout(() => {
+
           tommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
           tommorowMaxTemp.textContent = `${data.forecast.forecastday[1].day.maxtemp_c}°C`;
-        }, 300);
-        setTimeout(() => {
+
           tommorowMinTemp.classList.replace("opacity-0", "opacity-100");
           tommorowMinTemp.textContent = `${data.forecast.forecastday[1].day.mintemp_c}°C`;
-        }, 300);
-        setTimeout(() => {
           tommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
           tommorowWindSpeed.textContent = `${data.forecast.forecastday[1].day.maxwind_kph}km/h`;
-        }, 300);
-        setTimeout(() => {
+
           tommorowRainChance.classList.replace("opacity-0", "opacity-100");
           tommorowRainChance.textContent = `${data.forecast.forecastday[1].day.daily_chance_of_rain}%`;
-        }, 300);
-        setTimeout(() => {}, 300);
-        setTimeout(() => {
+
           afterTommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
           afterTommorowMaxTemp.textContent = `${data.forecast.forecastday[2].day.maxtemp_c}°C`;
-        }, 300);
-        setTimeout(() => {
-          afterTommoroMinTemp.classList.replace("opacity-0", "opacity-100");
-          afterTommoroMinTemp.textContent = `${data.forecast.forecastday[2].day.mintemp_c}°C`;
-        }, 300);
-        setTimeout(() => {
+
+          afterTommorowMinTemp.classList.replace("opacity-0", "opacity-100");
+          afterTommorowMinTemp.textContent = `${data.forecast.forecastday[2].day.mintemp_c}°C`;
+
           afterTommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
           afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_kph}km/h`;
-        }, 300);
-        setTimeout(() => {
           afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
           afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
+
+          after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_c}°C`;
+          after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
+          after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
+          after2TommorowMinTemp.textContent = `${data.forecast.forecastday[3].day.mintemp_c}°C`;
+          after2TommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
+          after2TommorowWindSpeed.textContent = `${data.forecast.forecastday[3].day.maxwind_kph}km/h`;
+          after2TommorowRainChance.classList.replace("opacity-0", "opacity-100");
+          after2TommorowRainChance.textContent = `${data.forecast.forecastday[3].day.daily_chance_of_rain}%`;
+
+          yesterdayDay.classList.replace("opacity-0", "opacity-100");
+          yesterdayMaxTemp.classList.replace("opacity-0", "opacity-100");
+          yesterdayMaxTemp.textContent = `${historyData.forecast.forecastday[0].day.maxtemp_c}°C`;
+          yesterdayMinTemp.classList.replace("opacity-0", "opacity-100");
+          yesterdayMinTemp.textContent = `${historyData.forecast.forecastday[0].day.mintemp_c}°C`;
+          yesterdayWindSpeed.classList.replace("opacity-0", "opacity-100");
+          yesterdayWindSpeed.textContent = `${historyData.forecast.forecastday[0].day.maxwind_kph}km/h`;
+          yesterdayRainChance.classList.replace("opacity-0", "opacity-100");
+          yesterdayRainChance.textContent = `${historyData.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+          if (hourlyClicked) {
+            sixAMHour.classList.replace("opacity-0", "opacity-100");
+            sixAMHour.textContent = `${data.forecast.forecastday[0].hour[6].}`;
+          }
         }, 300);
       } catch (error) {
         console.log(error);
