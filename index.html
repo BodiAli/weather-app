@@ -10,16 +10,19 @@
       class="h-full w-full object-fill absolute -z-10 opacity-60"
       src="4f22957a9f6ee81a4632.mp4"
       type="video/mp4"
+      autoplay
+      muted
+      loop
     ></video>
-    <div id="logo" class="flex items-center pt-7 px-12 gap-2 justify-between">
-      <div class="flex">
-        <img src="images/sun.png" alt="weather logo" class="size-20" />
-        <h1 id="logo" class="text-5xl text-slate-300 w-fit select-none">Weather App</h1>
+    <div class="flex flex-col md:flex-row items-center md:pt-7 md:px-12 gap-2 md:justify-between">
+      <div class="flex items-center">
+        <img src="images/sun.png" alt="weather logo" class="md:size-20 size-16" />
+        <h1 id="logo" class="md:text-5xl text-3xl text-slate-300 w-fit select-none">Weather App</h1>
       </div>
-      <div class="flex">
-        <h1 class="mb-1 font-medium">Search For Your Location:</h1>
+      <div class="flex flex-col md:flex-row items-center gap-3">
+        <h1 class="mb-1 font-medium text-white">Search For A Location:</h1>
         <input
-          class="text-black outline-none px-1 font-medium rounded-sm"
+          class="text-black outline-none px-1 font-medium rounded-sm w-52"
           type="search"
           name="search"
           id="search"
@@ -27,30 +30,36 @@
         <button
           id="enter"
           type="button"
-          class="border-black border-2 bg-black px-3 rounded-lg hover:border-white active:bg-slate-500"
+          class="border-black border-2 bg-black px-3 rounded-lg hover:border-white active:bg-slate-500 text-white"
         >
           Enter
         </button>
-        <p
-          id="celsius"
-          class="bg-slate-800 transition-all my-1 border-black border-2 px-3 rounded-lg hover:border-white active:bg-slate-500 w-32 cursor-pointer"
-        >
-          Celsius °C
-        </p>
-        <p
-          id="fahrenheit"
-          class="bg-slate-800 transition-all border-black border-2 px-3 rounded-lg hover:border-white active:bg-slate-500 w-32 cursor-pointer"
-        >
-          Fahrenheit °F
-        </p>
+        <div>
+          <p
+            id="celsius"
+            class="bg-slate-800 transition-all my-1 text-sm border-black border-2 px-3 rounded-lg hover:border-white text-white active:bg-slate-500 w-28 cursor-pointer"
+          >
+            Celsius °C
+          </p>
+          <p
+            id="fahrenheit"
+            class="bg-slate-800 transition-all text-sm w-28 border-black border-2 px-3 rounded-lg hover:border-white text-white active:bg-slate-500 cursor-pointer"
+          >
+            Fahrenheit °F
+          </p>
+        </div>
       </div>
     </div>
-    <main class="grid grid-cols-4 grid-rows-3 h-4/6 text-white justify-items-center px-6 py-8 items-start">
+    <main
+      class="md:grid md:grid-cols-4 md:grid-rows-3 md:h-4/6 flex flex-col text-white justify-items-center md:px-8 px-2 py-8 items-start"
+    >
       <div
         id="location-details"
         class="row-start-1 row-end-3 col-start-1 col-end-3 flex flex-col gap-2 justify-self-start justify-center"
       >
-        <h1 id="location" class="text-4xl font-medium transition-all min-h-20 opacity-0">Cairo</h1>
+        <h1 id="location" class="md:text-4xl font-medium transition-all text-2xl md:min-h-20 opacity-0">
+          Cairo
+        </h1>
         <p id="location-date" class="font-medium transition-all opacity-0">Saturday, 9th Mar '24 4:08 am</p>
         <div id="condition-main" class="flex items-center gap-3">
           <div id="condition" class="flex items-center gap-1">
@@ -158,10 +167,10 @@
       </div>
       <div
         id="cards"
-        class="daily row-start-3 row-end-4 col-start-1 col-end-5 flex items-center justify-self-start px-12 justify-between w-full max-w-full"
+        class="daily md:row-start-3 md:row-end-4 md:col-start-1 md:col-end-5 flex items-center justify-self-start md:px-12 justify-between md:w-full md:max-w-full max-w-72 gap-3 md:overflow-visible overflow-x-auto max-h-fit"
       >
         <div
-          class="card border-blue-50 border-2 rounded-md flex flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105"
+          class="card border-blue-50 border-2 rounded-md flex flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 min-w-full md:min-w-fit"
         >
           <!-- <img src="" alt="" /> -->
           <h3 id="yesterday-day" class="font-bold opacity-0">Yesterday</h3>
@@ -182,7 +191,7 @@
           </p>
         </div>
         <div
-          class="card border-blue-50 border-2 rounded-md flex flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105"
+          class="card border-blue-50 border-2 rounded-md flex flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 min-w-full md:min-w-fit"
         >
           <!-- <img src="" alt="" /> -->
           <h3 id="tommorow-day" class="font-bold opacity-0">Tomorrow</h3>
@@ -199,7 +208,7 @@
           </p>
         </div>
         <div
-          class="card border-blue-50 border-2 rounded-md flex flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105"
+          class="card border-blue-50 border-2 rounded-md flex flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 min-w-full md:min-w-fit"
         >
           <!-- <img src="" alt="" /> -->
 
@@ -214,7 +223,7 @@
           </p>
         </div>
         <div
-          class="card border-blue-50 border-2 rounded-md flex flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105"
+          class="card border-blue-50 border-2 rounded-md flex flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 min-w-full md:min-w-fit"
         >
           <!-- <img src="" alt="" /> -->
           <h3 id="after2-day" class="font-bold opacity-0">Wednesday</h3>
@@ -228,7 +237,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="6am" class="font-bold opacity-0">6AM</h3>
           <p id="6am-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -241,7 +250,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="8am" class="font-bold opacity-0">8AM</h3>
           <p id="8am-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -254,7 +263,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="10am" class="font-bold opacity-0">10AM</h3>
           <p id="10am-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -267,7 +276,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="12pm" class="font-bold opacity-0">12PM</h3>
           <p id="12pm-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -280,7 +289,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="2pm" class="font-bold opacity-0">2PM</h3>
           <p id="2pm-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -293,7 +302,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="4pm" class="font-bold opacity-0">4PM</h3>
           <p id="4pm-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -306,7 +315,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="6pm" class="font-bold opacity-0">6PM</h3>
           <p id="6pm-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -319,7 +328,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="8pm" class="font-bold opacity-0">8PM</h3>
           <p id="8pm-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -332,7 +341,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="10pm" class="font-bold opacity-0">10PM</h3>
           <p id="10pm-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -345,7 +354,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="12am" class="font-bold opacity-0">12AM</h3>
           <p id="12am-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -358,7 +367,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="2am" class="font-bold opacity-0">2AM</h3>
           <p id="2am-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
@@ -371,7 +380,7 @@
           </p>
         </div>
         <div
-          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col gap-4 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0"
+          class="card-hour hidden border-blue-50 border-2 rounded-md flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 shrink-0 min-w-full md:min-w-fit"
         >
           <h3 id="4am" class="font-bold opacity-0">4AM</h3>
           <p id="4am-temp" class="before:content-['Temp:_'] before:font-medium opacity-0">22C</p>
