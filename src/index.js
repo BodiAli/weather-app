@@ -260,7 +260,6 @@ linktag();
     cards.classList.remove("hourly");
     cards.classList.remove("gap-10");
     cards.classList.add("daily");
-    cards.classList.remove("overflow-x-auto");
     hourlyCards.forEach((card) => {
       card.classList.add("hidden");
       card.classList.remove("hover:scale-105");
