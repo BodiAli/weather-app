@@ -10,9 +10,6 @@
       class="h-full w-full object-fill absolute -z-10 opacity-60"
       src="./images/clouds.mp4"
       type="video/mp4"
-      autoplay
-      muted
-      loop
     ></video>
     <div class="flex flex-col md:flex-row items-center md:pt-7 md:px-12 gap-2 md:justify-between">
       <div class="flex items-center">
@@ -47,6 +44,9 @@
           >
             Fahrenheit °F
           </p>
+        </div>
+        <div id="error" class="text-white absolute top-4 left-1/2 opacity-0 transition-all">
+          Faild to Connect
         </div>
       </div>
     </div>
@@ -113,7 +113,7 @@
       </div>
       <div
         id="weather-details"
-        class="row-start-1 row-end-3 flex flex-col gap-2 justify-self-end col-start-3 col-end-5"
+        class="row-start-1 row-end-3 self-center md:py-0 py-4 flex flex-col gap-2 justify-self-end col-start-3 col-end-5"
       >
         <div id="humidity-div" class="flex items-center gap-2 opacity-0">
           <img
@@ -170,6 +170,7 @@
         class="daily md:row-start-3 md:row-end-4 md:col-start-1 md:col-end-5 flex items-center justify-self-start md:px-12 justify-between md:w-full md:max-w-full max-w-72 gap-3 md:overflow-visible overflow-x-auto max-h-fit"
       >
         <div
+          id="yesterday-div"
           class="card border-blue-50 border-2 rounded-md flex flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 min-w-full md:min-w-fit"
         >
           <!-- <img src="" alt="" /> -->
@@ -191,6 +192,7 @@
           </p>
         </div>
         <div
+          id="tommorow-div"
           class="card border-blue-50 border-2 rounded-md flex flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 min-w-full md:min-w-fit"
         >
           <!-- <img src="" alt="" /> -->
@@ -208,6 +210,7 @@
           </p>
         </div>
         <div
+          id="after-tommorow-div"
           class="card border-blue-50 border-2 rounded-md flex flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 min-w-full md:min-w-fit"
         >
           <!-- <img src="" alt="" /> -->
@@ -223,6 +226,7 @@
           </p>
         </div>
         <div
+          id="after2-tommorow-div"
           class="card border-blue-50 border-2 rounded-md flex flex-col md:gap-4 gap-1 items-center justify-start p-2 bg-slate-800 transition-all duration-300 hover:shadow-2xl hover:scale-105 min-w-full md:min-w-fit"
         >
           <!-- <img src="" alt="" /> -->

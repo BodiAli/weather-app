@@ -166,15 +166,48 @@ linktag();
   const fourAMHumidity = document.getElementById("4am-humidity");
   const fourAMWindSpeed = document.getElementById("4am-wind-speed");
   const fourAMRainChance = document.getElementById("4am-rain-chance");
+  const yesterdayDiv = document.getElementById("yesterday-div");
+  const tommorowDiv = document.getElementById("tommorow-div");
+  const afterTommorowDiv = document.getElementById("after-tommorow-div");
+  const after2TommorowDiv = document.getElementById("after2-tommorow-div");
   const conditionDiv = document.getElementById("condition");
   const conditionImg = document.createElement("img");
+  const conditionImgYesterday = document.createElement("img");
+  const conditionImgTommorow = document.createElement("img");
+  const conditionImgAfterTommorow = document.createElement("img");
+  const conditionImgAfter2Tommorow = document.createElement("img");
   const currentFeelsLikeIcon = document.getElementById("current-feelslike-icon");
   const currentTemperatureIcon = document.getElementById("current-temp-icon");
+  const errorText = document.getElementById("error");
   conditionImg.title = "Current Condition Icon";
   conditionImg.alt = "current condition";
   conditionImg.style.width = "55px";
   conditionImg.style.height = "55px";
   conditionImg.classList.add("opacity-0");
+
+  conditionImgYesterday.title = "Current Condition Icon";
+  conditionImgYesterday.alt = "current condition";
+  conditionImgYesterday.style.width = "25px";
+  conditionImgYesterday.style.height = "25px";
+  conditionImgYesterday.classList.add("opacity-0");
+
+  conditionImgTommorow.title = "Current Condition Icon";
+  conditionImgTommorow.alt = "current condition";
+  conditionImgTommorow.style.width = "25px";
+  conditionImgTommorow.style.height = "25px";
+  conditionImgTommorow.classList.add("opacity-0");
+
+  conditionImgAfterTommorow.title = "Current Condition Icon";
+  conditionImgAfterTommorow.alt = "current condition";
+  conditionImgAfterTommorow.style.width = "25px";
+  conditionImgAfterTommorow.style.height = "25px";
+  conditionImgAfterTommorow.classList.add("opacity-0");
+
+  conditionImgAfter2Tommorow.title = "Current Condition Icon";
+  conditionImgAfter2Tommorow.alt = "current condition";
+  conditionImgAfter2Tommorow.style.width = "25px";
+  conditionImgAfter2Tommorow.style.height = "25px";
+  conditionImgAfter2Tommorow.classList.add("opacity-0");
 
   hourlyButton.addEventListener("click", () => {
     hourlyClicked = true;
@@ -252,10 +285,10 @@ linktag();
       try {
         const responseCurrent = await Promise.all([
           fetch(
-            `http://api.weatherapi.com/v1/history.json?dt=${formattedYesterdayDate}&key=4062a6c99201445190e72941240103&q=${searchInput.value}`
+            `https://api.weatherapi.com/v1/history.json?dt=${formattedYesterdayDate}&key=4062a6c99201445190e72941240103&q=${searchInput.value}`
           ),
           fetch(
-            `http://api.weatherapi.com/v1/forecast.json?days=4&key=4062a6c99201445190e72941240103&q=${searchInput.value}`
+            `https://api.weatherapi.com/v1/forecast.json?days=4&key=4062a6c99201445190e72941240103&q=${searchInput.value}`
           ),
         ]);
         const historyData = await responseCurrent[0].json();
@@ -268,6 +301,10 @@ linktag();
         currentFeelsLike.classList.replace("opacity-100", "opacity-0");
         currentCondition.classList.replace("opacity-100", "opacity-0");
         conditionImg.classList.replace("opacity-100", "opacity-0");
+        conditionImgYesterday.classList.replace("opacity-100", "opacity-0");
+        conditionImgTommorow.classList.replace("opacity-100", "opacity-0");
+        conditionImgAfterTommorow.classList.replace("opacity-100", "opacity-0");
+        conditionImgAfter2Tommorow.classList.replace("opacity-100", "opacity-0");
         currentFeelsLikeIcon.classList.replace("opacity-100", "opacity-0");
         currentTemperatureIcon.classList.replace("opacity-100", "opacity-0");
         humidityDiv.classList.replace("opacity-100", "opacity-0");
@@ -356,8 +393,12 @@ linktag();
         fourAMHumidity.classList.replace("opacity-100", "opacity-0");
         fourAMWindSpeed.classList.replace("opacity-100", "opacity-0");
         fourAMRainChance.classList.replace("opacity-100", "opacity-0");
+        errorText.classList.replace("opacity-100", "opacity-0");
 
         console.log(data);
+        if (data.error) {
+          throw new Error(data.error.message);
+        }
 
         const forecastDays = data.forecast.forecastday.map((forecast) => {
           const date = new Date(forecast.date);
@@ -376,6 +417,10 @@ linktag();
             currentFeelsLike.classList.replace("opacity-100", "opacity-0");
             currentCondition.classList.replace("opacity-100", "opacity-0");
             conditionImg.classList.replace("opacity-100", "opacity-0");
+            conditionImgYesterday.classList.replace("opacity-100", "opacity-0");
+            conditionImgTommorow.classList.replace("opacity-100", "opacity-0");
+            conditionImgAfterTommorow.classList.replace("opacity-100", "opacity-0");
+            conditionImgAfter2Tommorow.classList.replace("opacity-100", "opacity-0");
             currentFeelsLikeIcon.classList.replace("opacity-100", "opacity-0");
             currentTemperatureIcon.classList.replace("opacity-100", "opacity-0");
             humidityDiv.classList.replace("opacity-100", "opacity-0");
@@ -476,6 +521,10 @@ linktag();
             fahrenheitButton.classList.remove("bg-slate-500");
             setTimeout(() => {
               conditionImg.classList.replace("opacity-0", "opacity-100");
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
 
               location.classList.replace("opacity-0", "opacity-100");
               location.textContent = `${data.location.country} ${data.location.region}`;
@@ -690,6 +739,10 @@ linktag();
             currentFeelsLike.classList.replace("opacity-100", "opacity-0");
             currentCondition.classList.replace("opacity-100", "opacity-0");
             conditionImg.classList.replace("opacity-100", "opacity-0");
+            conditionImgYesterday.classList.replace("opacity-100", "opacity-0");
+            conditionImgTommorow.classList.replace("opacity-100", "opacity-0");
+            conditionImgAfterTommorow.classList.replace("opacity-100", "opacity-0");
+            conditionImgAfter2Tommorow.classList.replace("opacity-100", "opacity-0");
             currentFeelsLikeIcon.classList.replace("opacity-100", "opacity-0");
             currentTemperatureIcon.classList.replace("opacity-100", "opacity-0");
             humidityDiv.classList.replace("opacity-100", "opacity-0");
@@ -791,6 +844,10 @@ linktag();
 
             setTimeout(() => {
               conditionImg.classList.replace("opacity-0", "opacity-100");
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
 
               location.classList.replace("opacity-0", "opacity-100");
               location.textContent = `${data.location.country} ${data.location.region}`;
@@ -1151,6 +1208,669 @@ linktag();
           }, 300);
         }
 
+        if (
+          historyData.forecast.forecastday[0].day.condition.code === 1000 &&
+          historyData.forecast.forecastday[0].day.condition.text.trim() === "Clear"
+        ) {
+          conditionImgYesterday.src = clear;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1000 &&
+          historyData.forecast.forecastday[0].day.condition.text.trim() === "Sunny"
+        ) {
+          conditionImgYesterday.src = sunny;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (historyData.forecast.forecastday[0].day.condition.code === 1003) {
+          conditionImgYesterday.src = partlyCloudy;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (historyData.forecast.forecastday[0].day.condition.code === 1006) {
+          conditionImgYesterday.src = cloudy;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (historyData.forecast.forecastday[0].day.condition.code === 1009) {
+          conditionImgYesterday.src = overcast;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (historyData.forecast.forecastday[0].day.condition.code === 1030) {
+          conditionImgYesterday.src = mist;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1053 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1183 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1089 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1240 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1249 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1153
+        ) {
+          conditionImgYesterday.src = lightRain;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1066 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1072 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1210 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1216
+        ) {
+          conditionImgYesterday.src = possibleSnow;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1063 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1150 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1180 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1186
+        ) {
+          conditionImgYesterday.src = possibleRain;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1069 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1204
+        ) {
+          conditionImgYesterday.src = possibleSleet;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1087 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1117 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1273 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1276 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1279 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1282
+        ) {
+          conditionImgYesterday.src = blizzard;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1246 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1171 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1189 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1192 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1195 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1201 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1207 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1243 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1252
+        ) {
+          conditionImgYesterday.src = heavyRain;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1135 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1147
+        ) {
+          conditionImgYesterday.src = fog;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1168 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1198 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1213 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1255
+        ) {
+          conditionImgYesterday.src = lightSnow;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        } else if (
+          historyData.forecast.forecastday[0].day.condition.code === 1114 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1219 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1222 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1225 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1237 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1258 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1261 ||
+          historyData.forecast.forecastday[0].day.condition.code === 1264
+        ) {
+          conditionImgYesterday.src = heavySnow;
+          setTimeout(() => {
+            conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+            yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+          }, 300);
+        }
+
+        if (
+          data.forecast.forecastday[1].day.condition.code === 1000 &&
+          data.forecast.forecastday[1].day.condition.text.trim() === "Clear"
+        ) {
+          conditionImgTommorow.src = clear;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1000 &&
+          data.forecast.forecastday[1].day.condition.text.trim() === "Sunny"
+        ) {
+          conditionImgTommorow.src = sunny;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[1].day.condition.code === 1003) {
+          conditionImgTommorow.src = partlyCloudy;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[1].day.condition.code === 1006) {
+          conditionImgTommorow.src = cloudy;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[1].day.condition.code === 1009) {
+          conditionImgTommorow.src = overcast;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[1].day.condition.code === 1030) {
+          conditionImgTommorow.src = mist;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1053 ||
+          data.forecast.forecastday[1].day.condition.code === 1183 ||
+          data.forecast.forecastday[1].day.condition.code === 1089 ||
+          data.forecast.forecastday[1].day.condition.code === 1240 ||
+          data.forecast.forecastday[1].day.condition.code === 1249 ||
+          data.forecast.forecastday[1].day.condition.code === 1153
+        ) {
+          conditionImgTommorow.src = lightRain;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1066 ||
+          data.forecast.forecastday[1].day.condition.code === 1072 ||
+          data.forecast.forecastday[1].day.condition.code === 1210 ||
+          data.forecast.forecastday[1].day.condition.code === 1216
+        ) {
+          conditionImgTommorow.src = possibleSnow;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1063 ||
+          data.forecast.forecastday[1].day.condition.code === 1150 ||
+          data.forecast.forecastday[1].day.condition.code === 1180 ||
+          data.forecast.forecastday[1].day.condition.code === 1186
+        ) {
+          conditionImgTommorow.src = possibleRain;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1069 ||
+          data.forecast.forecastday[1].day.condition.code === 1204
+        ) {
+          conditionImgTommorow.src = possibleSleet;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1087 ||
+          data.forecast.forecastday[1].day.condition.code === 1117 ||
+          data.forecast.forecastday[1].day.condition.code === 1273 ||
+          data.forecast.forecastday[1].day.condition.code === 1276 ||
+          data.forecast.forecastday[1].day.condition.code === 1279 ||
+          data.forecast.forecastday[1].day.condition.code === 1282
+        ) {
+          conditionImgTommorow.src = blizzard;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1246 ||
+          data.forecast.forecastday[1].day.condition.code === 1171 ||
+          data.forecast.forecastday[1].day.condition.code === 1189 ||
+          data.forecast.forecastday[1].day.condition.code === 1192 ||
+          data.forecast.forecastday[1].day.condition.code === 1195 ||
+          data.forecast.forecastday[1].day.condition.code === 1201 ||
+          data.forecast.forecastday[1].day.condition.code === 1207 ||
+          data.forecast.forecastday[1].day.condition.code === 1243 ||
+          data.forecast.forecastday[1].day.condition.code === 1252
+        ) {
+          conditionImgTommorow.src = heavyRain;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1135 ||
+          data.forecast.forecastday[1].day.condition.code === 1147
+        ) {
+          conditionImgTommorow.src = fog;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1168 ||
+          data.forecast.forecastday[1].day.condition.code === 1198 ||
+          data.forecast.forecastday[1].day.condition.code === 1213 ||
+          data.forecast.forecastday[1].day.condition.code === 1255
+        ) {
+          conditionImgTommorow.src = lightSnow;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[1].day.condition.code === 1114 ||
+          data.forecast.forecastday[1].day.condition.code === 1219 ||
+          data.forecast.forecastday[1].day.condition.code === 1222 ||
+          data.forecast.forecastday[1].day.condition.code === 1225 ||
+          data.forecast.forecastday[1].day.condition.code === 1237 ||
+          data.forecast.forecastday[1].day.condition.code === 1258 ||
+          data.forecast.forecastday[1].day.condition.code === 1261 ||
+          data.forecast.forecastday[1].day.condition.code === 1264
+        ) {
+          conditionImgTommorow.src = heavySnow;
+          setTimeout(() => {
+            conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+            tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+          }, 300);
+        }
+
+        if (
+          data.forecast.forecastday[2].day.condition.code === 1000 &&
+          data.forecast.forecastday[2].day.condition.text.trim() === "Clear"
+        ) {
+          conditionImgAfterTommorow.src = clear;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1000 &&
+          data.forecast.forecastday[2].day.condition.text.trim() === "Sunny"
+        ) {
+          conditionImgAfterTommorow.src = sunny;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[2].day.condition.code === 1003) {
+          conditionImgAfterTommorow.src = partlyCloudy;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[2].day.condition.code === 1006) {
+          conditionImgAfterTommorow.src = cloudy;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[2].day.condition.code === 1009) {
+          conditionImgAfterTommorow.src = overcast;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[2].day.condition.code === 1030) {
+          conditionImgAfterTommorow.src = mist;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1053 ||
+          data.forecast.forecastday[2].day.condition.code === 1183 ||
+          data.forecast.forecastday[2].day.condition.code === 1089 ||
+          data.forecast.forecastday[2].day.condition.code === 1240 ||
+          data.forecast.forecastday[2].day.condition.code === 1249 ||
+          data.forecast.forecastday[2].day.condition.code === 1153
+        ) {
+          conditionImgAfterTommorow.src = lightRain;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1066 ||
+          data.forecast.forecastday[2].day.condition.code === 1072 ||
+          data.forecast.forecastday[2].day.condition.code === 1210 ||
+          data.forecast.forecastday[2].day.condition.code === 1216
+        ) {
+          conditionImgAfterTommorow.src = possibleSnow;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1063 ||
+          data.forecast.forecastday[2].day.condition.code === 1150 ||
+          data.forecast.forecastday[2].day.condition.code === 1180 ||
+          data.forecast.forecastday[2].day.condition.code === 1186
+        ) {
+          conditionImgAfterTommorow.src = possibleRain;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1069 ||
+          data.forecast.forecastday[2].day.condition.code === 1204
+        ) {
+          conditionImgAfterTommorow.src = possibleSleet;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1087 ||
+          data.forecast.forecastday[2].day.condition.code === 1117 ||
+          data.forecast.forecastday[2].day.condition.code === 1273 ||
+          data.forecast.forecastday[2].day.condition.code === 1276 ||
+          data.forecast.forecastday[2].day.condition.code === 1279 ||
+          data.forecast.forecastday[2].day.condition.code === 1282
+        ) {
+          conditionImgAfterTommorow.src = blizzard;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1246 ||
+          data.forecast.forecastday[2].day.condition.code === 1171 ||
+          data.forecast.forecastday[2].day.condition.code === 1189 ||
+          data.forecast.forecastday[2].day.condition.code === 1192 ||
+          data.forecast.forecastday[2].day.condition.code === 1195 ||
+          data.forecast.forecastday[2].day.condition.code === 1201 ||
+          data.forecast.forecastday[2].day.condition.code === 1207 ||
+          data.forecast.forecastday[2].day.condition.code === 1243 ||
+          data.forecast.forecastday[2].day.condition.code === 1252
+        ) {
+          conditionImgAfterTommorow.src = heavyRain;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1135 ||
+          data.forecast.forecastday[2].day.condition.code === 1147
+        ) {
+          conditionImgAfterTommorow.src = fog;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1168 ||
+          data.forecast.forecastday[2].day.condition.code === 1198 ||
+          data.forecast.forecastday[2].day.condition.code === 1213 ||
+          data.forecast.forecastday[2].day.condition.code === 1255
+        ) {
+          conditionImgAfterTommorow.src = lightSnow;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[2].day.condition.code === 1114 ||
+          data.forecast.forecastday[2].day.condition.code === 1219 ||
+          data.forecast.forecastday[2].day.condition.code === 1222 ||
+          data.forecast.forecastday[2].day.condition.code === 1225 ||
+          data.forecast.forecastday[2].day.condition.code === 1237 ||
+          data.forecast.forecastday[2].day.condition.code === 1258 ||
+          data.forecast.forecastday[2].day.condition.code === 1261 ||
+          data.forecast.forecastday[2].day.condition.code === 1264
+        ) {
+          conditionImgAfterTommorow.src = heavySnow;
+          setTimeout(() => {
+            conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+            afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+          }, 300);
+        }
+        if (
+          data.forecast.forecastday[3].day.condition.code === 1000 &&
+          data.forecast.forecastday[3].day.condition.text.trim() === "Clear"
+        ) {
+          conditionImgAfter2Tommorow.src = clear;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1000 &&
+          data.forecast.forecastday[3].day.condition.text.trim() === "Sunny"
+        ) {
+          conditionImgAfter2Tommorow.src = sunny;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[3].day.condition.code === 1003) {
+          conditionImgAfter2Tommorow.src = partlyCloudy;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[3].day.condition.code === 1006) {
+          conditionImgAfter2Tommorow.src = cloudy;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[3].day.condition.code === 1009) {
+          conditionImgAfter2Tommorow.src = overcast;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (data.forecast.forecastday[3].day.condition.code === 1030) {
+          conditionImgAfter2Tommorow.src = mist;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1053 ||
+          data.forecast.forecastday[3].day.condition.code === 1183 ||
+          data.forecast.forecastday[3].day.condition.code === 1089 ||
+          data.forecast.forecastday[3].day.condition.code === 1240 ||
+          data.forecast.forecastday[3].day.condition.code === 1249 ||
+          data.forecast.forecastday[3].day.condition.code === 1153
+        ) {
+          conditionImgAfter2Tommorow.src = lightRain;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1066 ||
+          data.forecast.forecastday[3].day.condition.code === 1072 ||
+          data.forecast.forecastday[3].day.condition.code === 1210 ||
+          data.forecast.forecastday[3].day.condition.code === 1216
+        ) {
+          conditionImgAfter2Tommorow.src = possibleSnow;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1063 ||
+          data.forecast.forecastday[3].day.condition.code === 1150 ||
+          data.forecast.forecastday[3].day.condition.code === 1180 ||
+          data.forecast.forecastday[3].day.condition.code === 1186
+        ) {
+          conditionImgAfter2Tommorow.src = possibleRain;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1069 ||
+          data.forecast.forecastday[3].day.condition.code === 1204
+        ) {
+          conditionImgAfter2Tommorow.src = possibleSleet;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1087 ||
+          data.forecast.forecastday[3].day.condition.code === 1117 ||
+          data.forecast.forecastday[3].day.condition.code === 1273 ||
+          data.forecast.forecastday[3].day.condition.code === 1276 ||
+          data.forecast.forecastday[3].day.condition.code === 1279 ||
+          data.forecast.forecastday[3].day.condition.code === 1282
+        ) {
+          conditionImgAfter2Tommorow.src = blizzard;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1246 ||
+          data.forecast.forecastday[3].day.condition.code === 1171 ||
+          data.forecast.forecastday[3].day.condition.code === 1189 ||
+          data.forecast.forecastday[3].day.condition.code === 1192 ||
+          data.forecast.forecastday[3].day.condition.code === 1195 ||
+          data.forecast.forecastday[3].day.condition.code === 1201 ||
+          data.forecast.forecastday[3].day.condition.code === 1207 ||
+          data.forecast.forecastday[3].day.condition.code === 1243 ||
+          data.forecast.forecastday[3].day.condition.code === 1252
+        ) {
+          conditionImgAfter2Tommorow.src = heavyRain;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1135 ||
+          data.forecast.forecastday[3].day.condition.code === 1147
+        ) {
+          conditionImgAfter2Tommorow.src = fog;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1168 ||
+          data.forecast.forecastday[3].day.condition.code === 1198 ||
+          data.forecast.forecastday[3].day.condition.code === 1213 ||
+          data.forecast.forecastday[3].day.condition.code === 1255
+        ) {
+          conditionImgAfter2Tommorow.src = lightSnow;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        } else if (
+          data.forecast.forecastday[3].day.condition.code === 1114 ||
+          data.forecast.forecastday[3].day.condition.code === 1219 ||
+          data.forecast.forecastday[3].day.condition.code === 1222 ||
+          data.forecast.forecastday[3].day.condition.code === 1225 ||
+          data.forecast.forecastday[3].day.condition.code === 1237 ||
+          data.forecast.forecastday[3].day.condition.code === 1258 ||
+          data.forecast.forecastday[3].day.condition.code === 1261 ||
+          data.forecast.forecastday[3].day.condition.code === 1264
+        ) {
+          conditionImgAfter2Tommorow.src = heavySnow;
+          setTimeout(() => {
+            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+          }, 300);
+        }
+
         setTimeout(() => {
           location.classList.replace("opacity-0", "opacity-100");
           location.textContent = `${data.location.country} ${data.location.region}`;
@@ -1355,6 +2075,11 @@ linktag();
           fourAMRainChance.textContent = `${data.forecast.forecastday[0].hour[4].chance_of_rain}%`;
         }, 300);
       } catch (error) {
+        errorText.classList.replace("opacity-0", "opacity-100");
+        errorText.textContent = error.substring("Error: ".length);
+        setTimeout(() => {
+          errorText.classList.replace("opacity-100", "opacity-0");
+        }, 1500);
         console.log(error);
       }
     } else if (ev.type === "DOMContentLoaded") {
@@ -1365,10 +2090,10 @@ linktag();
 
           const responseCurrent = await Promise.all([
             fetch(
-              `http://api.weatherapi.com/v1/history.json?dt=${formattedYesterdayDate}&key=4062a6c99201445190e72941240103&q=${latitude},${longitude}`
+              `https://api.weatherapi.com/v1/history.json?dt=${formattedYesterdayDate}&key=4062a6c99201445190e72941240103&q=${latitude},${longitude}`
             ),
             fetch(
-              `http://api.weatherapi.com/v1/forecast.json?days=4&key=4062a6c99201445190e72941240103&q=${latitude},${longitude}`
+              `https://api.weatherapi.com/v1/forecast.json?days=4&key=4062a6c99201445190e72941240103&q=${latitude},${longitude}`
             ),
           ]);
           const historyData = await responseCurrent[0].json();
@@ -1381,6 +2106,10 @@ linktag();
           currentFeelsLike.classList.replace("opacity-100", "opacity-0");
           currentCondition.classList.replace("opacity-100", "opacity-0");
           conditionImg.classList.replace("opacity-100", "opacity-0");
+          conditionImgYesterday.classList.replace("opacity-100", "opacity-0");
+          conditionImgTommorow.classList.replace("opacity-100", "opacity-0");
+          conditionImgAfterTommorow.classList.replace("opacity-100", "opacity-0");
+          conditionImgAfter2Tommorow.classList.replace("opacity-100", "opacity-0");
           currentFeelsLikeIcon.classList.replace("opacity-100", "opacity-0");
           currentTemperatureIcon.classList.replace("opacity-100", "opacity-0");
           humidityDiv.classList.replace("opacity-100", "opacity-0");
@@ -1469,9 +2198,11 @@ linktag();
           fourAMHumidity.classList.replace("opacity-100", "opacity-0");
           fourAMWindSpeed.classList.replace("opacity-100", "opacity-0");
           fourAMRainChance.classList.replace("opacity-100", "opacity-0");
+          errorText.classList.replace("opacity-100", "opacity-0");
 
-          console.log(data);
-
+          if (data.error) {
+            throw new Error(data.error.message);
+          }
           const forecastDays = data.forecast.forecastday.map((forecast) => {
             const date = new Date(forecast.date);
             const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][
@@ -1489,6 +2220,10 @@ linktag();
               currentFeelsLike.classList.replace("opacity-100", "opacity-0");
               currentCondition.classList.replace("opacity-100", "opacity-0");
               conditionImg.classList.replace("opacity-100", "opacity-0");
+              conditionImgYesterday.classList.replace("opacity-100", "opacity-0");
+              conditionImgTommorow.classList.replace("opacity-100", "opacity-0");
+              conditionImgAfterTommorow.classList.replace("opacity-100", "opacity-0");
+              conditionImgAfter2Tommorow.classList.replace("opacity-100", "opacity-0");
               currentFeelsLikeIcon.classList.replace("opacity-100", "opacity-0");
               currentTemperatureIcon.classList.replace("opacity-100", "opacity-0");
               humidityDiv.classList.replace("opacity-100", "opacity-0");
@@ -1589,6 +2324,10 @@ linktag();
               fahrenheitButton.classList.remove("bg-slate-500");
               setTimeout(() => {
                 conditionImg.classList.replace("opacity-0", "opacity-100");
+                conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+                conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+                conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+                conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
 
                 location.classList.replace("opacity-0", "opacity-100");
                 location.textContent = `${data.location.country} ${data.location.region}`;
@@ -1803,6 +2542,10 @@ linktag();
               currentFeelsLike.classList.replace("opacity-100", "opacity-0");
               currentCondition.classList.replace("opacity-100", "opacity-0");
               conditionImg.classList.replace("opacity-100", "opacity-0");
+              conditionImgYesterday.classList.replace("opacity-100", "opacity-0");
+              conditionImgTommorow.classList.replace("opacity-100", "opacity-0");
+              conditionImgAfterTommorow.classList.replace("opacity-100", "opacity-0");
+              conditionImgAfter2Tommorow.classList.replace("opacity-100", "opacity-0");
               currentFeelsLikeIcon.classList.replace("opacity-100", "opacity-0");
               currentTemperatureIcon.classList.replace("opacity-100", "opacity-0");
               humidityDiv.classList.replace("opacity-100", "opacity-0");
@@ -1904,6 +2647,10 @@ linktag();
 
               setTimeout(() => {
                 conditionImg.classList.replace("opacity-0", "opacity-100");
+                conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+                conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+                conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+                conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
 
                 location.classList.replace("opacity-0", "opacity-100");
                 location.textContent = `${data.location.country} ${data.location.region}`;
@@ -2264,6 +3011,669 @@ linktag();
             }, 300);
           }
 
+          if (
+            historyData.forecast.forecastday[0].day.condition.code === 1000 &&
+            historyData.forecast.forecastday[0].day.condition.text.trim() === "Clear"
+          ) {
+            conditionImgYesterday.src = clear;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1000 &&
+            historyData.forecast.forecastday[0].day.condition.text.trim() === "Sunny"
+          ) {
+            conditionImgYesterday.src = sunny;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (historyData.forecast.forecastday[0].day.condition.code === 1003) {
+            conditionImgYesterday.src = partlyCloudy;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (historyData.forecast.forecastday[0].day.condition.code === 1006) {
+            conditionImgYesterday.src = cloudy;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (historyData.forecast.forecastday[0].day.condition.code === 1009) {
+            conditionImgYesterday.src = overcast;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (historyData.forecast.forecastday[0].day.condition.code === 1030) {
+            conditionImgYesterday.src = mist;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1053 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1183 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1089 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1240 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1249 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1153
+          ) {
+            conditionImgYesterday.src = lightRain;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1066 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1072 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1210 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1216
+          ) {
+            conditionImgYesterday.src = possibleSnow;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1063 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1150 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1180 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1186
+          ) {
+            conditionImgYesterday.src = possibleRain;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1069 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1204
+          ) {
+            conditionImgYesterday.src = possibleSleet;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1087 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1117 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1273 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1276 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1279 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1282
+          ) {
+            conditionImgYesterday.src = blizzard;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1246 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1171 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1189 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1192 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1195 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1201 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1207 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1243 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1252
+          ) {
+            conditionImgYesterday.src = heavyRain;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1135 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1147
+          ) {
+            conditionImgYesterday.src = fog;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1168 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1198 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1213 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1255
+          ) {
+            conditionImgYesterday.src = lightSnow;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          } else if (
+            historyData.forecast.forecastday[0].day.condition.code === 1114 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1219 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1222 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1225 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1237 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1258 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1261 ||
+            historyData.forecast.forecastday[0].day.condition.code === 1264
+          ) {
+            conditionImgYesterday.src = heavySnow;
+            setTimeout(() => {
+              conditionImgYesterday.classList.replace("opacity-0", "opacity-100");
+
+              yesterdayDiv.insertBefore(conditionImgYesterday, yesterdayDay);
+            }, 300);
+          }
+
+          if (
+            data.forecast.forecastday[1].day.condition.code === 1000 &&
+            data.forecast.forecastday[1].day.condition.text.trim() === "Clear"
+          ) {
+            conditionImgTommorow.src = clear;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1000 &&
+            data.forecast.forecastday[1].day.condition.text.trim() === "Sunny"
+          ) {
+            conditionImgTommorow.src = sunny;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[1].day.condition.code === 1003) {
+            conditionImgTommorow.src = partlyCloudy;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[1].day.condition.code === 1006) {
+            conditionImgTommorow.src = cloudy;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[1].day.condition.code === 1009) {
+            conditionImgTommorow.src = overcast;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[1].day.condition.code === 1030) {
+            conditionImgTommorow.src = mist;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1053 ||
+            data.forecast.forecastday[1].day.condition.code === 1183 ||
+            data.forecast.forecastday[1].day.condition.code === 1089 ||
+            data.forecast.forecastday[1].day.condition.code === 1240 ||
+            data.forecast.forecastday[1].day.condition.code === 1249 ||
+            data.forecast.forecastday[1].day.condition.code === 1153
+          ) {
+            conditionImgTommorow.src = lightRain;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1066 ||
+            data.forecast.forecastday[1].day.condition.code === 1072 ||
+            data.forecast.forecastday[1].day.condition.code === 1210 ||
+            data.forecast.forecastday[1].day.condition.code === 1216
+          ) {
+            conditionImgTommorow.src = possibleSnow;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1063 ||
+            data.forecast.forecastday[1].day.condition.code === 1150 ||
+            data.forecast.forecastday[1].day.condition.code === 1180 ||
+            data.forecast.forecastday[1].day.condition.code === 1186
+          ) {
+            conditionImgTommorow.src = possibleRain;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1069 ||
+            data.forecast.forecastday[1].day.condition.code === 1204
+          ) {
+            conditionImgTommorow.src = possibleSleet;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1087 ||
+            data.forecast.forecastday[1].day.condition.code === 1117 ||
+            data.forecast.forecastday[1].day.condition.code === 1273 ||
+            data.forecast.forecastday[1].day.condition.code === 1276 ||
+            data.forecast.forecastday[1].day.condition.code === 1279 ||
+            data.forecast.forecastday[1].day.condition.code === 1282
+          ) {
+            conditionImgTommorow.src = blizzard;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1246 ||
+            data.forecast.forecastday[1].day.condition.code === 1171 ||
+            data.forecast.forecastday[1].day.condition.code === 1189 ||
+            data.forecast.forecastday[1].day.condition.code === 1192 ||
+            data.forecast.forecastday[1].day.condition.code === 1195 ||
+            data.forecast.forecastday[1].day.condition.code === 1201 ||
+            data.forecast.forecastday[1].day.condition.code === 1207 ||
+            data.forecast.forecastday[1].day.condition.code === 1243 ||
+            data.forecast.forecastday[1].day.condition.code === 1252
+          ) {
+            conditionImgTommorow.src = heavyRain;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1135 ||
+            data.forecast.forecastday[1].day.condition.code === 1147
+          ) {
+            conditionImgTommorow.src = fog;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1168 ||
+            data.forecast.forecastday[1].day.condition.code === 1198 ||
+            data.forecast.forecastday[1].day.condition.code === 1213 ||
+            data.forecast.forecastday[1].day.condition.code === 1255
+          ) {
+            conditionImgTommorow.src = lightSnow;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[1].day.condition.code === 1114 ||
+            data.forecast.forecastday[1].day.condition.code === 1219 ||
+            data.forecast.forecastday[1].day.condition.code === 1222 ||
+            data.forecast.forecastday[1].day.condition.code === 1225 ||
+            data.forecast.forecastday[1].day.condition.code === 1237 ||
+            data.forecast.forecastday[1].day.condition.code === 1258 ||
+            data.forecast.forecastday[1].day.condition.code === 1261 ||
+            data.forecast.forecastday[1].day.condition.code === 1264
+          ) {
+            conditionImgTommorow.src = heavySnow;
+            setTimeout(() => {
+              conditionImgTommorow.classList.replace("opacity-0", "opacity-100");
+
+              tommorowDiv.insertBefore(conditionImgTommorow, tommorowDay);
+            }, 300);
+          }
+
+          if (
+            data.forecast.forecastday[2].day.condition.code === 1000 &&
+            data.forecast.forecastday[2].day.condition.text.trim() === "Clear"
+          ) {
+            conditionImgAfterTommorow.src = clear;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1000 &&
+            data.forecast.forecastday[2].day.condition.text.trim() === "Sunny"
+          ) {
+            conditionImgAfterTommorow.src = sunny;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[2].day.condition.code === 1003) {
+            conditionImgAfterTommorow.src = partlyCloudy;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[2].day.condition.code === 1006) {
+            conditionImgAfterTommorow.src = cloudy;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[2].day.condition.code === 1009) {
+            conditionImgAfterTommorow.src = overcast;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[2].day.condition.code === 1030) {
+            conditionImgAfterTommorow.src = mist;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1053 ||
+            data.forecast.forecastday[2].day.condition.code === 1183 ||
+            data.forecast.forecastday[2].day.condition.code === 1089 ||
+            data.forecast.forecastday[2].day.condition.code === 1240 ||
+            data.forecast.forecastday[2].day.condition.code === 1249 ||
+            data.forecast.forecastday[2].day.condition.code === 1153
+          ) {
+            conditionImgAfterTommorow.src = lightRain;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1066 ||
+            data.forecast.forecastday[2].day.condition.code === 1072 ||
+            data.forecast.forecastday[2].day.condition.code === 1210 ||
+            data.forecast.forecastday[2].day.condition.code === 1216
+          ) {
+            conditionImgAfterTommorow.src = possibleSnow;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1063 ||
+            data.forecast.forecastday[2].day.condition.code === 1150 ||
+            data.forecast.forecastday[2].day.condition.code === 1180 ||
+            data.forecast.forecastday[2].day.condition.code === 1186
+          ) {
+            conditionImgAfterTommorow.src = possibleRain;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1069 ||
+            data.forecast.forecastday[2].day.condition.code === 1204
+          ) {
+            conditionImgAfterTommorow.src = possibleSleet;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1087 ||
+            data.forecast.forecastday[2].day.condition.code === 1117 ||
+            data.forecast.forecastday[2].day.condition.code === 1273 ||
+            data.forecast.forecastday[2].day.condition.code === 1276 ||
+            data.forecast.forecastday[2].day.condition.code === 1279 ||
+            data.forecast.forecastday[2].day.condition.code === 1282
+          ) {
+            conditionImgAfterTommorow.src = blizzard;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1246 ||
+            data.forecast.forecastday[2].day.condition.code === 1171 ||
+            data.forecast.forecastday[2].day.condition.code === 1189 ||
+            data.forecast.forecastday[2].day.condition.code === 1192 ||
+            data.forecast.forecastday[2].day.condition.code === 1195 ||
+            data.forecast.forecastday[2].day.condition.code === 1201 ||
+            data.forecast.forecastday[2].day.condition.code === 1207 ||
+            data.forecast.forecastday[2].day.condition.code === 1243 ||
+            data.forecast.forecastday[2].day.condition.code === 1252
+          ) {
+            conditionImgAfterTommorow.src = heavyRain;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1135 ||
+            data.forecast.forecastday[2].day.condition.code === 1147
+          ) {
+            conditionImgAfterTommorow.src = fog;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1168 ||
+            data.forecast.forecastday[2].day.condition.code === 1198 ||
+            data.forecast.forecastday[2].day.condition.code === 1213 ||
+            data.forecast.forecastday[2].day.condition.code === 1255
+          ) {
+            conditionImgAfterTommorow.src = lightSnow;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[2].day.condition.code === 1114 ||
+            data.forecast.forecastday[2].day.condition.code === 1219 ||
+            data.forecast.forecastday[2].day.condition.code === 1222 ||
+            data.forecast.forecastday[2].day.condition.code === 1225 ||
+            data.forecast.forecastday[2].day.condition.code === 1237 ||
+            data.forecast.forecastday[2].day.condition.code === 1258 ||
+            data.forecast.forecastday[2].day.condition.code === 1261 ||
+            data.forecast.forecastday[2].day.condition.code === 1264
+          ) {
+            conditionImgAfterTommorow.src = heavySnow;
+            setTimeout(() => {
+              conditionImgAfterTommorow.classList.replace("opacity-0", "opacity-100");
+
+              afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
+            }, 300);
+          }
+          if (
+            data.forecast.forecastday[3].day.condition.code === 1000 &&
+            data.forecast.forecastday[3].day.condition.text.trim() === "Clear"
+          ) {
+            conditionImgAfter2Tommorow.src = clear;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1000 &&
+            data.forecast.forecastday[3].day.condition.text.trim() === "Sunny"
+          ) {
+            conditionImgAfter2Tommorow.src = sunny;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[3].day.condition.code === 1003) {
+            conditionImgAfter2Tommorow.src = partlyCloudy;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[3].day.condition.code === 1006) {
+            conditionImgAfter2Tommorow.src = cloudy;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[3].day.condition.code === 1009) {
+            conditionImgAfter2Tommorow.src = overcast;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (data.forecast.forecastday[3].day.condition.code === 1030) {
+            conditionImgAfter2Tommorow.src = mist;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1053 ||
+            data.forecast.forecastday[3].day.condition.code === 1183 ||
+            data.forecast.forecastday[3].day.condition.code === 1089 ||
+            data.forecast.forecastday[3].day.condition.code === 1240 ||
+            data.forecast.forecastday[3].day.condition.code === 1249 ||
+            data.forecast.forecastday[3].day.condition.code === 1153
+          ) {
+            conditionImgAfter2Tommorow.src = lightRain;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1066 ||
+            data.forecast.forecastday[3].day.condition.code === 1072 ||
+            data.forecast.forecastday[3].day.condition.code === 1210 ||
+            data.forecast.forecastday[3].day.condition.code === 1216
+          ) {
+            conditionImgAfter2Tommorow.src = possibleSnow;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1063 ||
+            data.forecast.forecastday[3].day.condition.code === 1150 ||
+            data.forecast.forecastday[3].day.condition.code === 1180 ||
+            data.forecast.forecastday[3].day.condition.code === 1186
+          ) {
+            conditionImgAfter2Tommorow.src = possibleRain;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1069 ||
+            data.forecast.forecastday[3].day.condition.code === 1204
+          ) {
+            conditionImgAfter2Tommorow.src = possibleSleet;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1087 ||
+            data.forecast.forecastday[3].day.condition.code === 1117 ||
+            data.forecast.forecastday[3].day.condition.code === 1273 ||
+            data.forecast.forecastday[3].day.condition.code === 1276 ||
+            data.forecast.forecastday[3].day.condition.code === 1279 ||
+            data.forecast.forecastday[3].day.condition.code === 1282
+          ) {
+            conditionImgAfter2Tommorow.src = blizzard;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1246 ||
+            data.forecast.forecastday[3].day.condition.code === 1171 ||
+            data.forecast.forecastday[3].day.condition.code === 1189 ||
+            data.forecast.forecastday[3].day.condition.code === 1192 ||
+            data.forecast.forecastday[3].day.condition.code === 1195 ||
+            data.forecast.forecastday[3].day.condition.code === 1201 ||
+            data.forecast.forecastday[3].day.condition.code === 1207 ||
+            data.forecast.forecastday[3].day.condition.code === 1243 ||
+            data.forecast.forecastday[3].day.condition.code === 1252
+          ) {
+            conditionImgAfter2Tommorow.src = heavyRain;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1135 ||
+            data.forecast.forecastday[3].day.condition.code === 1147
+          ) {
+            conditionImgAfter2Tommorow.src = fog;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1168 ||
+            data.forecast.forecastday[3].day.condition.code === 1198 ||
+            data.forecast.forecastday[3].day.condition.code === 1213 ||
+            data.forecast.forecastday[3].day.condition.code === 1255
+          ) {
+            conditionImgAfter2Tommorow.src = lightSnow;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          } else if (
+            data.forecast.forecastday[3].day.condition.code === 1114 ||
+            data.forecast.forecastday[3].day.condition.code === 1219 ||
+            data.forecast.forecastday[3].day.condition.code === 1222 ||
+            data.forecast.forecastday[3].day.condition.code === 1225 ||
+            data.forecast.forecastday[3].day.condition.code === 1237 ||
+            data.forecast.forecastday[3].day.condition.code === 1258 ||
+            data.forecast.forecastday[3].day.condition.code === 1261 ||
+            data.forecast.forecastday[3].day.condition.code === 1264
+          ) {
+            conditionImgAfter2Tommorow.src = heavySnow;
+            setTimeout(() => {
+              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
+
+              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
+            }, 300);
+          }
+
           setTimeout(() => {
             location.classList.replace("opacity-0", "opacity-100");
             location.textContent = `${data.location.country} ${data.location.region}`;
@@ -2469,6 +3879,11 @@ linktag();
           }, 300);
         });
       } catch (error) {
+        errorText.classList.replace("opacity-0", "opacity-100");
+        errorText.textContent = error.substring("Error: ".length);
+        setTimeout(() => {
+          errorText.classList.replace("opacity-100", "opacity-0");
+        }, 1500);
         console.log(error);
       }
     }
