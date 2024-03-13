@@ -257,6 +257,7 @@ linktag();
     hourlyButton.classList.remove("border-white");
     hourlyButton.classList.remove("bg-slate-500");
 
+    cards.classList.add("md:overflow-visible");
     cards.classList.remove("hourly");
     cards.classList.remove("gap-10");
     cards.classList.add("daily");
