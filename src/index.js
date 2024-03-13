@@ -178,10 +178,28 @@ linktag();
 
   hourlyButton.addEventListener("click", () => {
     hourlyClicked = true;
+    hourlyButton.classList.remove("bg-slate-800");
+    hourlyButton.classList.remove("border-black");
+    hourlyButton.classList.add("border-white");
+    hourlyButton.classList.add("bg-slate-500");
+
+    dailyButton.classList.add("bg-slate-800");
+    dailyButton.classList.add("border-black");
+    dailyButton.classList.remove("border-white");
+    dailyButton.classList.remove("bg-slate-500");
+
     cards.classList.remove("daily");
     cards.classList.add("gap-10");
     cards.classList.add("hourly");
     cards.classList.add("overflow-x-auto");
+
+    const cardsScrollLeft = 50;
+    setTimeout(() => {
+      cards.scrollTo({
+        left: cardsScrollLeft,
+        behavior: "smooth",
+      });
+    }, 300);
     hourlyCards.forEach((card) => {
       card.classList.remove("hidden");
       card.classList.remove("hover:scale-105");
@@ -192,23 +210,42 @@ linktag();
       card.classList.remove("flex");
       card.classList.add("hidden");
     });
-    dailyButton.addEventListener("click", () => {
-      hourlyClicked = false;
-      cards.classList.remove("hourly");
-      cards.classList.remove("gap-10");
-      cards.classList.add("daily");
-      cards.classList.remove("overflow-x-auto");
-      hourlyCards.forEach((card) => {
-        card.classList.add("hidden");
-        card.classList.remove("hover:scale-105");
-        card.classList.add("hover:bg-slate-900");
-      });
-      dailyCards.forEach((card) => {
-        card.classList.add("flex");
-        card.classList.remove("hidden");
+  });
+  dailyButton.addEventListener("click", () => {
+    hourlyClicked = false;
+    dailyButton.classList.remove("bg-slate-800");
+    dailyButton.classList.remove("border-black");
+    dailyButton.classList.add("border-white");
+    dailyButton.classList.add("bg-slate-500");
+
+    hourlyButton.classList.add("bg-slate-800");
+    hourlyButton.classList.add("border-black");
+    hourlyButton.classList.remove("border-white");
+    hourlyButton.classList.remove("bg-slate-500");
+
+    cards.classList.remove("hourly");
+    cards.classList.remove("gap-10");
+    cards.classList.add("daily");
+    cards.classList.remove("overflow-x-auto");
+    hourlyCards.forEach((card) => {
+      card.classList.add("hidden");
+      card.classList.remove("hover:scale-105");
+      card.classList.add("hover:bg-slate-900");
+    });
+    dailyCards.forEach((card) => {
+      card.classList.add("flex");
+      card.classList.remove("hidden");
+    });
+  });
+
+  hourlyCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      card.scrollIntoView({
+        behavior: "smooth",
       });
     });
   });
+
   async function getWeather(ev) {
     if ((ev.type === "keydown" && ev.keyCode === 13 && searchInput.value !== "") || ev.type === "click") {
       try {
@@ -320,9 +357,113 @@ linktag();
         fourAMRainChance.classList.replace("opacity-100", "opacity-0");
 
         console.log(data);
+
+        const forecastDays = data.forecast.forecastday.map((forecast) => {
+          const date = new Date(forecast.date);
+          const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][
+            date.getDay()
+          ];
+          return dayName;
+        });
+
         celsiusButton.addEventListener("click", function () {
           celsiusClicked = true;
           if (celsiusClicked) {
+            currentTemperature.classList.replace("opacity-100", "opacity-0");
+            location.classList.replace("opacity-100", "opacity-0");
+            locationDate.classList.replace("opacity-100", "opacity-0");
+            currentFeelsLike.classList.replace("opacity-100", "opacity-0");
+            currentCondition.classList.replace("opacity-100", "opacity-0");
+            conditionImg.classList.replace("opacity-100", "opacity-0");
+            currentFeelsLikeIcon.classList.replace("opacity-100", "opacity-0");
+            currentTemperatureIcon.classList.replace("opacity-100", "opacity-0");
+            humidityDiv.classList.replace("opacity-100", "opacity-0");
+            windSpeedDiv.classList.replace("opacity-100", "opacity-0");
+            gustDiv.classList.replace("opacity-100", "opacity-0");
+            maxTempDiv.classList.replace("opacity-100", "opacity-0");
+            minTempDiv.classList.replace("opacity-100", "opacity-0");
+            rainPercentDiv.classList.replace("opacity-100", "opacity-0");
+            tommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
+            tommorowMinTemp.classList.replace("opacity-100", "opacity-0");
+            tommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
+            tommorowRainChance.classList.replace("opacity-100", "opacity-0");
+            tommorowDay.classList.replace("opacity-100", "opacity-0");
+            afterTommorowDay.classList.replace("opacity-100", "opacity-0");
+            afterTommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
+            afterTommorowMinTemp.classList.replace("opacity-100", "opacity-0");
+            afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
+            afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
+            after2TommorowDay.classList.replace("opacity-100", "opacity-0");
+            after2TommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
+            after2TommorowMinTemp.classList.replace("opacity-100", "opacity-0");
+            after2TommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
+            after2TommorowRainChance.classList.replace("opacity-100", "opacity-0");
+            yesterdayDay.classList.replace("opacity-100", "opacity-0");
+            yesterdayMaxTemp.classList.replace("opacity-100", "opacity-0");
+            yesterdayMinTemp.classList.replace("opacity-100", "opacity-0");
+            yesterdayWindSpeed.classList.replace("opacity-100", "opacity-0");
+            yesterdayRainChance.classList.replace("opacity-100", "opacity-0");
+            sixAMHour.classList.replace("opacity-100", "opacity-0");
+            eightAMHour.classList.replace("opacity-100", "opacity-0");
+            tenAMHour.classList.replace("opacity-100", "opacity-0");
+            twelvePMHour.classList.replace("opacity-100", "opacity-0");
+            twoPMHour.classList.replace("opacity-100", "opacity-0");
+            fourPMHour.classList.replace("opacity-100", "opacity-0");
+            sixPMHour.classList.replace("opacity-100", "opacity-0");
+            eightPMHour.classList.replace("opacity-100", "opacity-0");
+            tenPMHour.classList.replace("opacity-100", "opacity-0");
+            twelveAMHour.classList.replace("opacity-100", "opacity-0");
+            twoAMHour.classList.replace("opacity-100", "opacity-0");
+            fourAMHour.classList.replace("opacity-100", "opacity-0");
+            sixAMTemp.classList.replace("opacity-100", "opacity-0");
+            sixAMHumidity.classList.replace("opacity-100", "opacity-0");
+            sixAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            sixAMRainChance.classList.replace("opacity-100", "opacity-0");
+            eightAMTemp.classList.replace("opacity-100", "opacity-0");
+            eightAMHumidity.classList.replace("opacity-100", "opacity-0");
+            eightAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            eightAMRainChance.classList.replace("opacity-100", "opacity-0");
+            tenAMTemp.classList.replace("opacity-100", "opacity-0");
+            tenAMHumidity.classList.replace("opacity-100", "opacity-0");
+            tenAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            tenAMRainChance.classList.replace("opacity-100", "opacity-0");
+            twelvePMTemp.classList.replace("opacity-100", "opacity-0");
+            twelvePMHumidity.classList.replace("opacity-100", "opacity-0");
+            twelvePMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            twelvePMRainChance.classList.replace("opacity-100", "opacity-0");
+            twoPMTemp.classList.replace("opacity-100", "opacity-0");
+            twoPMHumidity.classList.replace("opacity-100", "opacity-0");
+            twoPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            twoPMRainChance.classList.replace("opacity-100", "opacity-0");
+            fourPMTemp.classList.replace("opacity-100", "opacity-0");
+            fourPMHumidity.classList.replace("opacity-100", "opacity-0");
+            fourPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            fourPMRainChance.classList.replace("opacity-100", "opacity-0");
+            sixPMTemp.classList.replace("opacity-100", "opacity-0");
+            sixPMHumidity.classList.replace("opacity-100", "opacity-0");
+            sixPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            sixPMRainChance.classList.replace("opacity-100", "opacity-0");
+            eightPMTemp.classList.replace("opacity-100", "opacity-0");
+            eightPMHumidity.classList.replace("opacity-100", "opacity-0");
+            eightPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            eightPMRainChance.classList.replace("opacity-100", "opacity-0");
+            tenPMTemp.classList.replace("opacity-100", "opacity-0");
+            tenPMHumidity.classList.replace("opacity-100", "opacity-0");
+            tenPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            tenPMRainChance.classList.replace("opacity-100", "opacity-0");
+            twelveAMTemp.classList.replace("opacity-100", "opacity-0");
+            twelveAMHumidity.classList.replace("opacity-100", "opacity-0");
+            twelveAmWindSpeed.classList.replace("opacity-100", "opacity-0");
+            twelveAMRainChance.classList.replace("opacity-100", "opacity-0");
+            twoAMTemp.classList.replace("opacity-100", "opacity-0");
+            twoAMHumidity.classList.replace("opacity-100", "opacity-0");
+            twoAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            twoAMRainChance.classList.replace("opacity-100", "opacity-0");
+            fourAMTemp.classList.replace("opacity-100", "opacity-0");
+            fourAMHumidity.classList.replace("opacity-100", "opacity-0");
+            fourAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            fourAMRainChance.classList.replace("opacity-100", "opacity-0");
+
             this.classList.remove("bg-slate-800");
             this.classList.remove("border-black");
             this.classList.add("border-white");
@@ -332,11 +473,311 @@ linktag();
             fahrenheitButton.classList.add("border-black");
             fahrenheitButton.classList.remove("border-white");
             fahrenheitButton.classList.remove("bg-slate-500");
+            setTimeout(() => {
+              conditionImg.classList.replace("opacity-0", "opacity-100");
+
+              location.classList.replace("opacity-0", "opacity-100");
+              location.textContent = `${data.location.country} ${data.location.region}`;
+
+              locationDate.classList.replace("opacity-0", "opacity-100");
+              locationDate.textContent = `${formatDate(data.location.localtime)}`;
+
+              currentCondition.classList.replace("opacity-0", "opacity-100");
+              currentCondition.textContent = currentData.condition.text;
+
+              currentTemperature.classList.replace("opacity-0", "opacity-100");
+              currentTemperature.textContent = `${currentData.temp_c}°C`;
+              currentFeelsLike.classList.replace("opacity-0", "opacity-100");
+              currentFeelsLike.textContent = `${currentData.feelslike_c}°C`;
+
+              currentFeelsLikeIcon.classList.replace("opacity-0", "opacity-100");
+
+              currentTemperatureIcon.classList.replace("opacity-0", "opacity-100");
+
+              humidityDiv.classList.replace("opacity-0", "opacity-100");
+              humidity.textContent = `${currentData.humidity}%`;
+
+              windSpeedDiv.classList.replace("opacity-0", "opacity-100");
+              currentWindSpeed.textContent = `${currentData.wind_kph}km/h`;
+
+              gustDiv.classList.replace("opacity-0", "opacity-100");
+              gust.textContent = `${currentData.gust_kph}km/h`;
+              maxTempDiv.classList.replace("opacity-0", "opacity-100");
+              currentMaxTemp.textContent = `${data.forecast.forecastday[0].day.maxtemp_c}°C`;
+
+              minTempDiv.classList.replace("opacity-0", "opacity-100");
+              currentMinTemp.textContent = `${data.forecast.forecastday[0].day.mintemp_c}°C`;
+
+              rainPercentDiv.classList.replace("opacity-0", "opacity-100");
+              currentRainPercent.textContent = `${data.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+
+              tommorowDay.classList.replace("opacity-0", "opacity-100");
+
+              tommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
+              tommorowMaxTemp.textContent = `${data.forecast.forecastday[1].day.maxtemp_c}°C`;
+
+              tommorowMinTemp.classList.replace("opacity-0", "opacity-100");
+              tommorowMinTemp.textContent = `${data.forecast.forecastday[1].day.mintemp_c}°C`;
+              tommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
+              tommorowWindSpeed.textContent = `${data.forecast.forecastday[1].day.maxwind_kph}km/h`;
+
+              tommorowRainChance.classList.replace("opacity-0", "opacity-100");
+              tommorowRainChance.textContent = `${data.forecast.forecastday[1].day.daily_chance_of_rain}%`;
+
+              afterTommorowDay.classList.replace("opacity-0", "opacity-100");
+              afterTommorowDay.textContent = `${forecastDays[2]}`;
+              afterTommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
+              afterTommorowMaxTemp.textContent = `${data.forecast.forecastday[2].day.maxtemp_c}°C`;
+
+              afterTommorowMinTemp.classList.replace("opacity-0", "opacity-100");
+              afterTommorowMinTemp.textContent = `${data.forecast.forecastday[2].day.mintemp_c}°C`;
+
+              afterTommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
+              afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_kph}km/h`;
+              afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
+              afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
+
+              after2TommorowDay.classList.replace("opacity-0", "opacity-100");
+              after2TommorowDay.textContent = `${forecastDays[3]}`;
+              after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_c}°C`;
+              after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
+              after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
+              after2TommorowMinTemp.textContent = `${data.forecast.forecastday[3].day.mintemp_c}°C`;
+              after2TommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
+              after2TommorowWindSpeed.textContent = `${data.forecast.forecastday[3].day.maxwind_kph}km/h`;
+              after2TommorowRainChance.classList.replace("opacity-0", "opacity-100");
+              after2TommorowRainChance.textContent = `${data.forecast.forecastday[3].day.daily_chance_of_rain}%`;
+
+              yesterdayDay.classList.replace("opacity-0", "opacity-100");
+              yesterdayMaxTemp.classList.replace("opacity-0", "opacity-100");
+              yesterdayMaxTemp.textContent = `${historyData.forecast.forecastday[0].day.maxtemp_c}°C`;
+              yesterdayMinTemp.classList.replace("opacity-0", "opacity-100");
+              yesterdayMinTemp.textContent = `${historyData.forecast.forecastday[0].day.mintemp_c}°C`;
+              yesterdayWindSpeed.classList.replace("opacity-0", "opacity-100");
+              yesterdayWindSpeed.textContent = `${historyData.forecast.forecastday[0].day.maxwind_kph}km/h`;
+              yesterdayRainChance.classList.replace("opacity-0", "opacity-100");
+              yesterdayRainChance.textContent = `${historyData.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+
+              sixAMHour.classList.replace("opacity-0", "opacity-100");
+              sixAMTemp.classList.replace("opacity-0", "opacity-100");
+              sixAMTemp.textContent = `${data.forecast.forecastday[0].hour[6].temp_c}°C`;
+              sixAMHumidity.classList.replace("opacity-0", "opacity-100");
+              sixAMHumidity.textContent = `${data.forecast.forecastday[0].hour[6].humidity}%`;
+              sixAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              sixAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[6].wind_kph}km/h`;
+              sixAMRainChance.classList.replace("opacity-0", "opacity-100");
+              sixAMRainChance.textContent = `${data.forecast.forecastday[0].hour[6].chance_of_rain}%`;
+
+              eightAMHour.classList.replace("opacity-0", "opacity-100");
+              eightAMTemp.classList.replace("opacity-0", "opacity-100");
+              eightAMTemp.textContent = `${data.forecast.forecastday[0].hour[8].temp_c}°C`;
+              eightAMHumidity.classList.replace("opacity-0", "opacity-100");
+              eightAMHumidity.textContent = `${data.forecast.forecastday[0].hour[8].humidity}%`;
+              eightAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              eightAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[8].wind_kph}km/h`;
+              eightAMRainChance.classList.replace("opacity-0", "opacity-100");
+              eightAMRainChance.textContent = `${data.forecast.forecastday[0].hour[8].chance_of_rain}%`;
+
+              tenAMHour.classList.replace("opacity-0", "opacity-100");
+              tenAMTemp.classList.replace("opacity-0", "opacity-100");
+              tenAMTemp.textContent = `${data.forecast.forecastday[0].hour[10].temp_c}°C`;
+              tenAMHumidity.classList.replace("opacity-0", "opacity-100");
+              tenAMHumidity.textContent = `${data.forecast.forecastday[0].hour[10].humidity}%`;
+              tenAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              tenAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[10].wind_kph}km/h`;
+              tenAMRainChance.classList.replace("opacity-0", "opacity-100");
+              tenAMRainChance.textContent = `${data.forecast.forecastday[0].hour[10].chance_of_rain}%`;
+
+              twelvePMHour.classList.replace("opacity-0", "opacity-100");
+              twelvePMTemp.classList.replace("opacity-0", "opacity-100");
+              twelvePMTemp.textContent = `${data.forecast.forecastday[0].hour[12].temp_c}°C`;
+              twelvePMHumidity.classList.replace("opacity-0", "opacity-100");
+              twelvePMHumidity.textContent = `${data.forecast.forecastday[0].hour[12].humidity}%`;
+              twelvePMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              twelvePMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[12].wind_kph}km/h`;
+              twelvePMRainChance.classList.replace("opacity-0", "opacity-100");
+              twelvePMRainChance.textContent = `${data.forecast.forecastday[0].hour[12].chance_of_rain}%`;
+
+              twoPMHour.classList.replace("opacity-0", "opacity-100");
+              twoPMTemp.classList.replace("opacity-0", "opacity-100");
+              twoPMTemp.textContent = `${data.forecast.forecastday[0].hour[14].temp_c}°C`;
+              twoPMHumidity.classList.replace("opacity-0", "opacity-100");
+              twoPMHumidity.textContent = `${data.forecast.forecastday[0].hour[14].humidity}%`;
+              twoPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              twoPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[14].wind_kph}km/h`;
+              twoPMRainChance.classList.replace("opacity-0", "opacity-100");
+              twoPMRainChance.textContent = `${data.forecast.forecastday[0].hour[14].chance_of_rain}%`;
+
+              fourPMHour.classList.replace("opacity-0", "opacity-100");
+              fourPMTemp.classList.replace("opacity-0", "opacity-100");
+              fourPMTemp.textContent = `${data.forecast.forecastday[0].hour[16].temp_c}°C`;
+              fourPMHumidity.classList.replace("opacity-0", "opacity-100");
+              fourPMHumidity.textContent = `${data.forecast.forecastday[0].hour[16].humidity}%`;
+              fourPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              fourPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[16].wind_kph}km/h`;
+              fourPMRainChance.classList.replace("opacity-0", "opacity-100");
+              fourPMRainChance.textContent = `${data.forecast.forecastday[0].hour[16].chance_of_rain}%`;
+
+              sixPMHour.classList.replace("opacity-0", "opacity-100");
+              sixPMTemp.classList.replace("opacity-0", "opacity-100");
+              sixPMTemp.textContent = `${data.forecast.forecastday[0].hour[18].temp_c}°C`;
+              sixPMHumidity.classList.replace("opacity-0", "opacity-100");
+              sixPMHumidity.textContent = `${data.forecast.forecastday[0].hour[18].humidity}%`;
+              sixPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              sixPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[18].wind_kph}km/h`;
+              sixPMRainChance.classList.replace("opacity-0", "opacity-100");
+              sixPMRainChance.textContent = `${data.forecast.forecastday[0].hour[18].chance_of_rain}%`;
+
+              eightPMHour.classList.replace("opacity-0", "opacity-100");
+              eightPMTemp.classList.replace("opacity-0", "opacity-100");
+              eightPMTemp.textContent = `${data.forecast.forecastday[0].hour[20].temp_c}°C`;
+              eightPMHumidity.classList.replace("opacity-0", "opacity-100");
+              eightPMHumidity.textContent = `${data.forecast.forecastday[0].hour[20].humidity}%`;
+              eightPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              eightPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[20].wind_kph}km/h`;
+              eightPMRainChance.classList.replace("opacity-0", "opacity-100");
+              eightPMRainChance.textContent = `${data.forecast.forecastday[0].hour[20].chance_of_rain}%`;
+
+              tenPMHour.classList.replace("opacity-0", "opacity-100");
+              tenPMTemp.classList.replace("opacity-0", "opacity-100");
+              tenPMTemp.textContent = `${data.forecast.forecastday[0].hour[22].temp_c}°C`;
+              tenPMHumidity.classList.replace("opacity-0", "opacity-100");
+              tenPMHumidity.textContent = `${data.forecast.forecastday[0].hour[22].humidity}%`;
+              tenPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              tenPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[22].wind_kph}km/h`;
+              tenPMRainChance.classList.replace("opacity-0", "opacity-100");
+              tenPMRainChance.textContent = `${data.forecast.forecastday[0].hour[22].chance_of_rain}%`;
+
+              twelveAMHour.classList.replace("opacity-0", "opacity-100");
+              twelveAMTemp.classList.replace("opacity-0", "opacity-100");
+              twelveAMTemp.textContent = `${data.forecast.forecastday[0].hour[0].temp_c}°C`;
+              twelveAMHumidity.classList.replace("opacity-0", "opacity-100");
+              twelveAMHumidity.textContent = `${data.forecast.forecastday[0].hour[0].humidity}%`;
+              twelveAmWindSpeed.classList.replace("opacity-0", "opacity-100");
+              twelveAmWindSpeed.textContent = `${data.forecast.forecastday[0].hour[0].wind_kph}km/h`;
+              twelveAMRainChance.classList.replace("opacity-0", "opacity-100");
+              twelveAMRainChance.textContent = `${data.forecast.forecastday[0].hour[0].chance_of_rain}%`;
+
+              twoAMHour.classList.replace("opacity-0", "opacity-100");
+              twoAMTemp.classList.replace("opacity-0", "opacity-100");
+              twoAMTemp.textContent = `${data.forecast.forecastday[0].hour[2].temp_c}°C`;
+              twoAMHumidity.classList.replace("opacity-0", "opacity-100");
+              twoAMHumidity.textContent = `${data.forecast.forecastday[0].hour[2].humidity}%`;
+              twoAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              twoAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[2].wind_kph}km/h`;
+              twoAMRainChance.classList.replace("opacity-0", "opacity-100");
+              twoAMRainChance.textContent = `${data.forecast.forecastday[0].hour[2].chance_of_rain}%`;
+
+              fourAMHour.classList.replace("opacity-0", "opacity-100");
+              fourAMTemp.classList.replace("opacity-0", "opacity-100");
+              fourAMTemp.textContent = `${data.forecast.forecastday[0].hour[4].temp_c}°C`;
+              fourAMHumidity.classList.replace("opacity-0", "opacity-100");
+              fourAMHumidity.textContent = `${data.forecast.forecastday[0].hour[4].humidity}%`;
+              fourAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              fourAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[4].wind_kph}km/h`;
+              fourAMRainChance.classList.replace("opacity-0", "opacity-100");
+              fourAMRainChance.textContent = `${data.forecast.forecastday[0].hour[4].chance_of_rain}%`;
+            }, 300);
           }
         });
         fahrenheitButton.addEventListener("click", function () {
           fahrenheitClicked = true;
           if (fahrenheitButton) {
+            currentTemperature.classList.replace("opacity-100", "opacity-0");
+            location.classList.replace("opacity-100", "opacity-0");
+            locationDate.classList.replace("opacity-100", "opacity-0");
+            currentFeelsLike.classList.replace("opacity-100", "opacity-0");
+            currentCondition.classList.replace("opacity-100", "opacity-0");
+            conditionImg.classList.replace("opacity-100", "opacity-0");
+            currentFeelsLikeIcon.classList.replace("opacity-100", "opacity-0");
+            currentTemperatureIcon.classList.replace("opacity-100", "opacity-0");
+            humidityDiv.classList.replace("opacity-100", "opacity-0");
+            windSpeedDiv.classList.replace("opacity-100", "opacity-0");
+            gustDiv.classList.replace("opacity-100", "opacity-0");
+            maxTempDiv.classList.replace("opacity-100", "opacity-0");
+            minTempDiv.classList.replace("opacity-100", "opacity-0");
+            rainPercentDiv.classList.replace("opacity-100", "opacity-0");
+            tommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
+            tommorowMinTemp.classList.replace("opacity-100", "opacity-0");
+            tommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
+            tommorowRainChance.classList.replace("opacity-100", "opacity-0");
+            tommorowDay.classList.replace("opacity-100", "opacity-0");
+            afterTommorowDay.classList.replace("opacity-100", "opacity-0");
+            afterTommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
+            afterTommorowMinTemp.classList.replace("opacity-100", "opacity-0");
+            afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
+            afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
+            after2TommorowDay.classList.replace("opacity-100", "opacity-0");
+            after2TommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
+            after2TommorowMinTemp.classList.replace("opacity-100", "opacity-0");
+            after2TommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
+            after2TommorowRainChance.classList.replace("opacity-100", "opacity-0");
+            yesterdayDay.classList.replace("opacity-100", "opacity-0");
+            yesterdayMaxTemp.classList.replace("opacity-100", "opacity-0");
+            yesterdayMinTemp.classList.replace("opacity-100", "opacity-0");
+            yesterdayWindSpeed.classList.replace("opacity-100", "opacity-0");
+            yesterdayRainChance.classList.replace("opacity-100", "opacity-0");
+            sixAMHour.classList.replace("opacity-100", "opacity-0");
+            eightAMHour.classList.replace("opacity-100", "opacity-0");
+            tenAMHour.classList.replace("opacity-100", "opacity-0");
+            twelvePMHour.classList.replace("opacity-100", "opacity-0");
+            twoPMHour.classList.replace("opacity-100", "opacity-0");
+            fourPMHour.classList.replace("opacity-100", "opacity-0");
+            sixPMHour.classList.replace("opacity-100", "opacity-0");
+            eightPMHour.classList.replace("opacity-100", "opacity-0");
+            tenPMHour.classList.replace("opacity-100", "opacity-0");
+            twelveAMHour.classList.replace("opacity-100", "opacity-0");
+            twoAMHour.classList.replace("opacity-100", "opacity-0");
+            fourAMHour.classList.replace("opacity-100", "opacity-0");
+            sixAMTemp.classList.replace("opacity-100", "opacity-0");
+            sixAMHumidity.classList.replace("opacity-100", "opacity-0");
+            sixAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            sixAMRainChance.classList.replace("opacity-100", "opacity-0");
+            eightAMTemp.classList.replace("opacity-100", "opacity-0");
+            eightAMHumidity.classList.replace("opacity-100", "opacity-0");
+            eightAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            eightAMRainChance.classList.replace("opacity-100", "opacity-0");
+            tenAMTemp.classList.replace("opacity-100", "opacity-0");
+            tenAMHumidity.classList.replace("opacity-100", "opacity-0");
+            tenAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            tenAMRainChance.classList.replace("opacity-100", "opacity-0");
+            twelvePMTemp.classList.replace("opacity-100", "opacity-0");
+            twelvePMHumidity.classList.replace("opacity-100", "opacity-0");
+            twelvePMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            twelvePMRainChance.classList.replace("opacity-100", "opacity-0");
+            twoPMTemp.classList.replace("opacity-100", "opacity-0");
+            twoPMHumidity.classList.replace("opacity-100", "opacity-0");
+            twoPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            twoPMRainChance.classList.replace("opacity-100", "opacity-0");
+            fourPMTemp.classList.replace("opacity-100", "opacity-0");
+            fourPMHumidity.classList.replace("opacity-100", "opacity-0");
+            fourPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            fourPMRainChance.classList.replace("opacity-100", "opacity-0");
+            sixPMTemp.classList.replace("opacity-100", "opacity-0");
+            sixPMHumidity.classList.replace("opacity-100", "opacity-0");
+            sixPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            sixPMRainChance.classList.replace("opacity-100", "opacity-0");
+            eightPMTemp.classList.replace("opacity-100", "opacity-0");
+            eightPMHumidity.classList.replace("opacity-100", "opacity-0");
+            eightPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            eightPMRainChance.classList.replace("opacity-100", "opacity-0");
+            tenPMTemp.classList.replace("opacity-100", "opacity-0");
+            tenPMHumidity.classList.replace("opacity-100", "opacity-0");
+            tenPMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            tenPMRainChance.classList.replace("opacity-100", "opacity-0");
+            twelveAMTemp.classList.replace("opacity-100", "opacity-0");
+            twelveAMHumidity.classList.replace("opacity-100", "opacity-0");
+            twelveAmWindSpeed.classList.replace("opacity-100", "opacity-0");
+            twelveAMRainChance.classList.replace("opacity-100", "opacity-0");
+            twoAMTemp.classList.replace("opacity-100", "opacity-0");
+            twoAMHumidity.classList.replace("opacity-100", "opacity-0");
+            twoAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            twoAMRainChance.classList.replace("opacity-100", "opacity-0");
+            fourAMTemp.classList.replace("opacity-100", "opacity-0");
+            fourAMHumidity.classList.replace("opacity-100", "opacity-0");
+            fourAMWindSpeed.classList.replace("opacity-100", "opacity-0");
+            fourAMRainChance.classList.replace("opacity-100", "opacity-0");
+
             this.classList.remove("bg-slate-800");
             this.classList.remove("border-black");
             this.classList.add("border-white");
@@ -347,8 +788,211 @@ linktag();
             celsiusButton.classList.remove("border-white");
             celsiusButton.classList.remove("bg-slate-500");
 
-            currentTemperature.textContent = `${currentData.temp_c}°F`;
-            currentTemperature.classList.replace("opacity-0", "opacity-100");
+            setTimeout(() => {
+              conditionImg.classList.replace("opacity-0", "opacity-100");
+
+              location.classList.replace("opacity-0", "opacity-100");
+              location.textContent = `${data.location.country} ${data.location.region}`;
+
+              locationDate.classList.replace("opacity-0", "opacity-100");
+              locationDate.textContent = `${formatDate(data.location.localtime)}`;
+
+              currentCondition.classList.replace("opacity-0", "opacity-100");
+              currentCondition.textContent = currentData.condition.text;
+
+              currentTemperature.classList.replace("opacity-0", "opacity-100");
+              currentTemperature.textContent = `${currentData.temp_f}°F`;
+              currentFeelsLike.classList.replace("opacity-0", "opacity-100");
+              currentFeelsLike.textContent = `${currentData.feelslike_f}°F`;
+
+              currentFeelsLikeIcon.classList.replace("opacity-0", "opacity-100");
+
+              currentTemperatureIcon.classList.replace("opacity-0", "opacity-100");
+
+              humidityDiv.classList.replace("opacity-0", "opacity-100");
+              humidity.textContent = `${currentData.humidity}%`;
+
+              windSpeedDiv.classList.replace("opacity-0", "opacity-100");
+              currentWindSpeed.textContent = `${currentData.wind_mph}mph/h`;
+
+              gustDiv.classList.replace("opacity-0", "opacity-100");
+              gust.textContent = `${currentData.gust_mph}mph/h`;
+              maxTempDiv.classList.replace("opacity-0", "opacity-100");
+              currentMaxTemp.textContent = `${data.forecast.forecastday[0].day.maxtemp_f}°F`;
+
+              minTempDiv.classList.replace("opacity-0", "opacity-100");
+              currentMinTemp.textContent = `${data.forecast.forecastday[0].day.mintemp_f}°F`;
+
+              rainPercentDiv.classList.replace("opacity-0", "opacity-100");
+              currentRainPercent.textContent = `${data.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+
+              tommorowDay.classList.replace("opacity-0", "opacity-100");
+
+              tommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
+              tommorowMaxTemp.textContent = `${data.forecast.forecastday[1].day.maxtemp_f}°F`;
+
+              tommorowMinTemp.classList.replace("opacity-0", "opacity-100");
+              tommorowMinTemp.textContent = `${data.forecast.forecastday[1].day.mintemp_f}°F`;
+              tommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
+              tommorowWindSpeed.textContent = `${data.forecast.forecastday[1].day.maxwind_mph}mp/h`;
+
+              tommorowRainChance.classList.replace("opacity-0", "opacity-100");
+              tommorowRainChance.textContent = `${data.forecast.forecastday[1].day.daily_chance_of_rain}%`;
+
+              afterTommorowDay.classList.replace("opacity-0", "opacity-100");
+              afterTommorowDay.textContent = `${forecastDays[2]}`;
+              afterTommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
+              afterTommorowMaxTemp.textContent = `${data.forecast.forecastday[2].day.maxtemp_f}°F`;
+
+              afterTommorowMinTemp.classList.replace("opacity-0", "opacity-100");
+              afterTommorowMinTemp.textContent = `${data.forecast.forecastday[2].day.mintemp_f}°F`;
+
+              afterTommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
+              afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_mph}mp/h`;
+              afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
+              afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
+
+              after2TommorowDay.classList.replace("opacity-0", "opacity-100");
+              after2TommorowDay.textContent = `${forecastDays[3]}`;
+              after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_f}°F`;
+              after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
+              after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
+              after2TommorowMinTemp.textContent = `${data.forecast.forecastday[3].day.mintemp_f}°F`;
+              after2TommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
+              after2TommorowWindSpeed.textContent = `${data.forecast.forecastday[3].day.maxwind_mph}mp/h`;
+              after2TommorowRainChance.classList.replace("opacity-0", "opacity-100");
+              after2TommorowRainChance.textContent = `${data.forecast.forecastday[3].day.daily_chance_of_rain}%`;
+
+              yesterdayDay.classList.replace("opacity-0", "opacity-100");
+              yesterdayMaxTemp.classList.replace("opacity-0", "opacity-100");
+              yesterdayMaxTemp.textContent = `${historyData.forecast.forecastday[0].day.maxtemp_f}°F`;
+              yesterdayMinTemp.classList.replace("opacity-0", "opacity-100");
+              yesterdayMinTemp.textContent = `${historyData.forecast.forecastday[0].day.mintemp_f}°F`;
+              yesterdayWindSpeed.classList.replace("opacity-0", "opacity-100");
+              yesterdayWindSpeed.textContent = `${historyData.forecast.forecastday[0].day.maxwind_mph}mp/h`;
+              yesterdayRainChance.classList.replace("opacity-0", "opacity-100");
+              yesterdayRainChance.textContent = `${historyData.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+
+              sixAMHour.classList.replace("opacity-0", "opacity-100");
+              sixAMTemp.classList.replace("opacity-0", "opacity-100");
+              sixAMTemp.textContent = `${data.forecast.forecastday[0].hour[6].temp_f}°F`;
+              sixAMHumidity.classList.replace("opacity-0", "opacity-100");
+              sixAMHumidity.textContent = `${data.forecast.forecastday[0].hour[6].humidity}%`;
+              sixAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              sixAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[6].wind_mph}mp/h`;
+              sixAMRainChance.classList.replace("opacity-0", "opacity-100");
+              sixAMRainChance.textContent = `${data.forecast.forecastday[0].hour[6].chance_of_rain}%`;
+
+              eightAMHour.classList.replace("opacity-0", "opacity-100");
+              eightAMTemp.classList.replace("opacity-0", "opacity-100");
+              eightAMTemp.textContent = `${data.forecast.forecastday[0].hour[8].temp_f}°F`;
+              eightAMHumidity.classList.replace("opacity-0", "opacity-100");
+              eightAMHumidity.textContent = `${data.forecast.forecastday[0].hour[8].humidity}%`;
+              eightAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              eightAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[8].wind_mph}mp/h`;
+              eightAMRainChance.classList.replace("opacity-0", "opacity-100");
+              eightAMRainChance.textContent = `${data.forecast.forecastday[0].hour[8].chance_of_rain}%`;
+
+              tenAMHour.classList.replace("opacity-0", "opacity-100");
+              tenAMTemp.classList.replace("opacity-0", "opacity-100");
+              tenAMTemp.textContent = `${data.forecast.forecastday[0].hour[10].temp_f}°F`;
+              tenAMHumidity.classList.replace("opacity-0", "opacity-100");
+              tenAMHumidity.textContent = `${data.forecast.forecastday[0].hour[10].humidity}%`;
+              tenAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              tenAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[10].wind_mph}mp/h`;
+              tenAMRainChance.classList.replace("opacity-0", "opacity-100");
+              tenAMRainChance.textContent = `${data.forecast.forecastday[0].hour[10].chance_of_rain}%`;
+
+              twelvePMHour.classList.replace("opacity-0", "opacity-100");
+              twelvePMTemp.classList.replace("opacity-0", "opacity-100");
+              twelvePMTemp.textContent = `${data.forecast.forecastday[0].hour[12].temp_f}°F`;
+              twelvePMHumidity.classList.replace("opacity-0", "opacity-100");
+              twelvePMHumidity.textContent = `${data.forecast.forecastday[0].hour[12].humidity}%`;
+              twelvePMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              twelvePMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[12].wind_mph}mp/h`;
+              twelvePMRainChance.classList.replace("opacity-0", "opacity-100");
+              twelvePMRainChance.textContent = `${data.forecast.forecastday[0].hour[12].chance_of_rain}%`;
+
+              twoPMHour.classList.replace("opacity-0", "opacity-100");
+              twoPMTemp.classList.replace("opacity-0", "opacity-100");
+              twoPMTemp.textContent = `${data.forecast.forecastday[0].hour[14].temp_f}°F`;
+              twoPMHumidity.classList.replace("opacity-0", "opacity-100");
+              twoPMHumidity.textContent = `${data.forecast.forecastday[0].hour[14].humidity}%`;
+              twoPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              twoPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[14].wind_mph}mp/h`;
+              twoPMRainChance.classList.replace("opacity-0", "opacity-100");
+              twoPMRainChance.textContent = `${data.forecast.forecastday[0].hour[14].chance_of_rain}%`;
+
+              fourPMHour.classList.replace("opacity-0", "opacity-100");
+              fourPMTemp.classList.replace("opacity-0", "opacity-100");
+              fourPMTemp.textContent = `${data.forecast.forecastday[0].hour[16].temp_f}°F`;
+              fourPMHumidity.classList.replace("opacity-0", "opacity-100");
+              fourPMHumidity.textContent = `${data.forecast.forecastday[0].hour[16].humidity}%`;
+              fourPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              fourPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[16].wind_mph}mp/h`;
+              fourPMRainChance.classList.replace("opacity-0", "opacity-100");
+              fourPMRainChance.textContent = `${data.forecast.forecastday[0].hour[16].chance_of_rain}%`;
+
+              sixPMHour.classList.replace("opacity-0", "opacity-100");
+              sixPMTemp.classList.replace("opacity-0", "opacity-100");
+              sixPMTemp.textContent = `${data.forecast.forecastday[0].hour[18].temp_f}°F`;
+              sixPMHumidity.classList.replace("opacity-0", "opacity-100");
+              sixPMHumidity.textContent = `${data.forecast.forecastday[0].hour[18].humidity}%`;
+              sixPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              sixPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[18].wind_mph}mp/h`;
+              sixPMRainChance.classList.replace("opacity-0", "opacity-100");
+              sixPMRainChance.textContent = `${data.forecast.forecastday[0].hour[18].chance_of_rain}%`;
+
+              eightPMHour.classList.replace("opacity-0", "opacity-100");
+              eightPMTemp.classList.replace("opacity-0", "opacity-100");
+              eightPMTemp.textContent = `${data.forecast.forecastday[0].hour[20].temp_f}°F`;
+              eightPMHumidity.classList.replace("opacity-0", "opacity-100");
+              eightPMHumidity.textContent = `${data.forecast.forecastday[0].hour[20].humidity}%`;
+              eightPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              eightPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[20].wind_mph}mp/h`;
+              eightPMRainChance.classList.replace("opacity-0", "opacity-100");
+              eightPMRainChance.textContent = `${data.forecast.forecastday[0].hour[20].chance_of_rain}%`;
+
+              tenPMHour.classList.replace("opacity-0", "opacity-100");
+              tenPMTemp.classList.replace("opacity-0", "opacity-100");
+              tenPMTemp.textContent = `${data.forecast.forecastday[0].hour[22].temp_f}°F`;
+              tenPMHumidity.classList.replace("opacity-0", "opacity-100");
+              tenPMHumidity.textContent = `${data.forecast.forecastday[0].hour[22].humidity}%`;
+              tenPMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              tenPMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[22].wind_mph}mp/h`;
+              tenPMRainChance.classList.replace("opacity-0", "opacity-100");
+              tenPMRainChance.textContent = `${data.forecast.forecastday[0].hour[22].chance_of_rain}%`;
+
+              twelveAMHour.classList.replace("opacity-0", "opacity-100");
+              twelveAMTemp.classList.replace("opacity-0", "opacity-100");
+              twelveAMTemp.textContent = `${data.forecast.forecastday[0].hour[0].temp_f}°F`;
+              twelveAMHumidity.classList.replace("opacity-0", "opacity-100");
+              twelveAMHumidity.textContent = `${data.forecast.forecastday[0].hour[0].humidity}%`;
+              twelveAmWindSpeed.classList.replace("opacity-0", "opacity-100");
+              twelveAmWindSpeed.textContent = `${data.forecast.forecastday[0].hour[0].wind_mph}mp/h`;
+              twelveAMRainChance.classList.replace("opacity-0", "opacity-100");
+              twelveAMRainChance.textContent = `${data.forecast.forecastday[0].hour[0].chance_of_rain}%`;
+
+              twoAMHour.classList.replace("opacity-0", "opacity-100");
+              twoAMTemp.classList.replace("opacity-0", "opacity-100");
+              twoAMTemp.textContent = `${data.forecast.forecastday[0].hour[2].temp_f}°F`;
+              twoAMHumidity.classList.replace("opacity-0", "opacity-100");
+              twoAMHumidity.textContent = `${data.forecast.forecastday[0].hour[2].humidity}%`;
+              twoAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              twoAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[2].wind_mph}mp/h`;
+              twoAMRainChance.classList.replace("opacity-0", "opacity-100");
+              twoAMRainChance.textContent = `${data.forecast.forecastday[0].hour[2].chance_of_rain}%`;
+
+              fourAMHour.classList.replace("opacity-0", "opacity-100");
+              fourAMTemp.classList.replace("opacity-0", "opacity-100");
+              fourAMTemp.textContent = `${data.forecast.forecastday[0].hour[4].temp_f}°F`;
+              fourAMHumidity.classList.replace("opacity-0", "opacity-100");
+              fourAMHumidity.textContent = `${data.forecast.forecastday[0].hour[4].humidity}%`;
+              fourAMWindSpeed.classList.replace("opacity-0", "opacity-100");
+              fourAMWindSpeed.textContent = `${data.forecast.forecastday[0].hour[4].wind_mph}mp/h`;
+              fourAMRainChance.classList.replace("opacity-0", "opacity-100");
+              fourAMRainChance.textContent = `${data.forecast.forecastday[0].hour[4].chance_of_rain}%`;
+            }, 300);
           }
         });
 
@@ -505,6 +1149,7 @@ linktag();
             conditionDiv.insertBefore(conditionImg, currentCondition);
           }, 300);
         }
+
         setTimeout(() => {
           location.classList.replace("opacity-0", "opacity-100");
           location.textContent = `${data.location.country} ${data.location.region}`;
@@ -554,6 +1199,8 @@ linktag();
           tommorowRainChance.classList.replace("opacity-0", "opacity-100");
           tommorowRainChance.textContent = `${data.forecast.forecastday[1].day.daily_chance_of_rain}%`;
 
+          afterTommorowDay.classList.replace("opacity-0", "opacity-100");
+          afterTommorowDay.textContent = `${forecastDays[2]}`;
           afterTommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
           afterTommorowMaxTemp.textContent = `${data.forecast.forecastday[2].day.maxtemp_c}°C`;
 
@@ -565,6 +1212,8 @@ linktag();
           afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
           afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
 
+          after2TommorowDay.classList.replace("opacity-0", "opacity-100");
+          after2TommorowDay.textContent = `${forecastDays[3]}`;
           after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_c}°C`;
           after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
           after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
