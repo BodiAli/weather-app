@@ -281,7 +281,10 @@ linktag();
   });
 
   async function getWeather(ev) {
-    if ((ev.type === "keydown" && ev.keyCode === 13 && searchInput.value !== "") || ev.type === "click") {
+    if (
+      (ev.type === "keydown" && ev.keyCode === 13 && searchInput.value !== "") ||
+      (ev.type === "click" && searchInput.value !== "")
+    ) {
       try {
         const responseCurrent = await Promise.all([
           fetch(
@@ -293,7 +296,6 @@ linktag();
         ]);
         const historyData = await responseCurrent[0].json();
         const data = await responseCurrent[1].json();
-        console.log(historyData);
         const currentData = data.current;
         currentTemperature.classList.replace("opacity-100", "opacity-0");
         location.classList.replace("opacity-100", "opacity-0");
@@ -395,7 +397,6 @@ linktag();
         fourAMRainChance.classList.replace("opacity-100", "opacity-0");
         errorText.classList.replace("opacity-100", "opacity-0");
 
-        console.log(data);
         if (data.error) {
           throw new Error(data.error.message);
         }
@@ -2076,7 +2077,7 @@ linktag();
         }, 300);
       } catch (error) {
         errorText.classList.replace("opacity-0", "opacity-100");
-        errorText.textContent = error.substring("Error: ".length);
+        errorText.textContent = error;
         setTimeout(() => {
           errorText.classList.replace("opacity-100", "opacity-0");
         }, 1500);
@@ -2098,7 +2099,6 @@ linktag();
           ]);
           const historyData = await responseCurrent[0].json();
           const data = await responseCurrent[1].json();
-          console.log(historyData);
           const currentData = data.current;
           currentTemperature.classList.replace("opacity-100", "opacity-0");
           location.classList.replace("opacity-100", "opacity-0");
@@ -3880,11 +3880,10 @@ linktag();
         });
       } catch (error) {
         errorText.classList.replace("opacity-0", "opacity-100");
-        errorText.textContent = error.substring("Error: ".length);
+        errorText.textContent = error;
         setTimeout(() => {
           errorText.classList.replace("opacity-100", "opacity-0");
         }, 1500);
-        console.log(error);
       }
     }
   }
