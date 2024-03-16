@@ -96,11 +96,6 @@ linktag();
   const afterTommorowMinTemp = document.getElementById("after-min-temp");
   const afterTommorowWindSpeed = document.getElementById("after-wind-speed");
   const afterTommorowRainChance = document.getElementById("after-rain-chance");
-  const after2TommorowDay = document.getElementById("after2-day");
-  const after2TommorowMaxTemp = document.getElementById("after2-max-temp");
-  const after2TommorowMinTemp = document.getElementById("after2-min-temp");
-  const after2TommorowWindSpeed = document.getElementById("after2-wind-speed");
-  const after2TommorowRainChance = document.getElementById("after2-rain-chance");
   const yesterdayDay = document.getElementById("yesterday-day");
   const yesterdayMaxTemp = document.getElementById("yesterday-max-temp");
   const yesterdayMinTemp = document.getElementById("yesterday-min-temp");
@@ -169,7 +164,6 @@ linktag();
   const yesterdayDiv = document.getElementById("yesterday-div");
   const tommorowDiv = document.getElementById("tommorow-div");
   const afterTommorowDiv = document.getElementById("after-tommorow-div");
-  const after2TommorowDiv = document.getElementById("after2-tommorow-div");
   const conditionDiv = document.getElementById("condition");
   const conditionImg = document.createElement("img");
   const conditionImgYesterday = document.createElement("img");
@@ -325,11 +319,6 @@ linktag();
         afterTommorowMinTemp.classList.replace("opacity-100", "opacity-0");
         afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
         afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
-        after2TommorowDay.classList.replace("opacity-100", "opacity-0");
-        after2TommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
-        after2TommorowMinTemp.classList.replace("opacity-100", "opacity-0");
-        after2TommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
-        after2TommorowRainChance.classList.replace("opacity-100", "opacity-0");
         yesterdayDay.classList.replace("opacity-100", "opacity-0");
         yesterdayMaxTemp.classList.replace("opacity-100", "opacity-0");
         yesterdayMinTemp.classList.replace("opacity-100", "opacity-0");
@@ -396,7 +385,6 @@ linktag();
         fourAMWindSpeed.classList.replace("opacity-100", "opacity-0");
         fourAMRainChance.classList.replace("opacity-100", "opacity-0");
         errorText.classList.replace("opacity-100", "opacity-0");
-
         if (data.error) {
           throw new Error(data.error.message);
         }
@@ -440,11 +428,6 @@ linktag();
             afterTommorowMinTemp.classList.replace("opacity-100", "opacity-0");
             afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
             afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
-            after2TommorowDay.classList.replace("opacity-100", "opacity-0");
-            after2TommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
-            after2TommorowMinTemp.classList.replace("opacity-100", "opacity-0");
-            after2TommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
-            after2TommorowRainChance.classList.replace("opacity-100", "opacity-0");
             yesterdayDay.classList.replace("opacity-100", "opacity-0");
             yesterdayMaxTemp.classList.replace("opacity-100", "opacity-0");
             yesterdayMinTemp.classList.replace("opacity-100", "opacity-0");
@@ -587,17 +570,6 @@ linktag();
               afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_kph}km/h`;
               afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
               afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
-
-              after2TommorowDay.classList.replace("opacity-0", "opacity-100");
-              after2TommorowDay.textContent = `${forecastDays[3]}`;
-              after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_c}°C`;
-              after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
-              after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
-              after2TommorowMinTemp.textContent = `${data.forecast.forecastday[3].day.mintemp_c}°C`;
-              after2TommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
-              after2TommorowWindSpeed.textContent = `${data.forecast.forecastday[3].day.maxwind_kph}km/h`;
-              after2TommorowRainChance.classList.replace("opacity-0", "opacity-100");
-              after2TommorowRainChance.textContent = `${data.forecast.forecastday[3].day.daily_chance_of_rain}%`;
 
               yesterdayDay.classList.replace("opacity-0", "opacity-100");
               yesterdayMaxTemp.classList.replace("opacity-0", "opacity-100");
@@ -762,11 +734,6 @@ linktag();
             afterTommorowMinTemp.classList.replace("opacity-100", "opacity-0");
             afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
             afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
-            after2TommorowDay.classList.replace("opacity-100", "opacity-0");
-            after2TommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
-            after2TommorowMinTemp.classList.replace("opacity-100", "opacity-0");
-            after2TommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
-            after2TommorowRainChance.classList.replace("opacity-100", "opacity-0");
             yesterdayDay.classList.replace("opacity-100", "opacity-0");
             yesterdayMaxTemp.classList.replace("opacity-100", "opacity-0");
             yesterdayMinTemp.classList.replace("opacity-100", "opacity-0");
@@ -910,17 +877,6 @@ linktag();
               afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_mph}mp/h`;
               afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
               afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
-
-              after2TommorowDay.classList.replace("opacity-0", "opacity-100");
-              after2TommorowDay.textContent = `${forecastDays[3]}`;
-              after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_f}°F`;
-              after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
-              after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
-              after2TommorowMinTemp.textContent = `${data.forecast.forecastday[3].day.mintemp_f}°F`;
-              after2TommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
-              after2TommorowWindSpeed.textContent = `${data.forecast.forecastday[3].day.maxwind_mph}mp/h`;
-              after2TommorowRainChance.classList.replace("opacity-0", "opacity-100");
-              after2TommorowRainChance.textContent = `${data.forecast.forecastday[3].day.daily_chance_of_rain}%`;
 
               yesterdayDay.classList.replace("opacity-0", "opacity-100");
               yesterdayMaxTemp.classList.replace("opacity-0", "opacity-100");
@@ -1706,171 +1662,6 @@ linktag();
             afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
           }, 300);
         }
-        if (
-          data.forecast.forecastday[3].day.condition.code === 1000 &&
-          data.forecast.forecastday[3].day.condition.text.trim() === "Clear"
-        ) {
-          conditionImgAfter2Tommorow.src = clear;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1000 &&
-          data.forecast.forecastday[3].day.condition.text.trim() === "Sunny"
-        ) {
-          conditionImgAfter2Tommorow.src = sunny;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (data.forecast.forecastday[3].day.condition.code === 1003) {
-          conditionImgAfter2Tommorow.src = partlyCloudy;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (data.forecast.forecastday[3].day.condition.code === 1006) {
-          conditionImgAfter2Tommorow.src = cloudy;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (data.forecast.forecastday[3].day.condition.code === 1009) {
-          conditionImgAfter2Tommorow.src = overcast;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (data.forecast.forecastday[3].day.condition.code === 1030) {
-          conditionImgAfter2Tommorow.src = mist;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1053 ||
-          data.forecast.forecastday[3].day.condition.code === 1183 ||
-          data.forecast.forecastday[3].day.condition.code === 1089 ||
-          data.forecast.forecastday[3].day.condition.code === 1240 ||
-          data.forecast.forecastday[3].day.condition.code === 1249 ||
-          data.forecast.forecastday[3].day.condition.code === 1153
-        ) {
-          conditionImgAfter2Tommorow.src = lightRain;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1066 ||
-          data.forecast.forecastday[3].day.condition.code === 1072 ||
-          data.forecast.forecastday[3].day.condition.code === 1210 ||
-          data.forecast.forecastday[3].day.condition.code === 1216
-        ) {
-          conditionImgAfter2Tommorow.src = possibleSnow;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1063 ||
-          data.forecast.forecastday[3].day.condition.code === 1150 ||
-          data.forecast.forecastday[3].day.condition.code === 1180 ||
-          data.forecast.forecastday[3].day.condition.code === 1186
-        ) {
-          conditionImgAfter2Tommorow.src = possibleRain;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1069 ||
-          data.forecast.forecastday[3].day.condition.code === 1204
-        ) {
-          conditionImgAfter2Tommorow.src = possibleSleet;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1087 ||
-          data.forecast.forecastday[3].day.condition.code === 1117 ||
-          data.forecast.forecastday[3].day.condition.code === 1273 ||
-          data.forecast.forecastday[3].day.condition.code === 1276 ||
-          data.forecast.forecastday[3].day.condition.code === 1279 ||
-          data.forecast.forecastday[3].day.condition.code === 1282
-        ) {
-          conditionImgAfter2Tommorow.src = blizzard;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1246 ||
-          data.forecast.forecastday[3].day.condition.code === 1171 ||
-          data.forecast.forecastday[3].day.condition.code === 1189 ||
-          data.forecast.forecastday[3].day.condition.code === 1192 ||
-          data.forecast.forecastday[3].day.condition.code === 1195 ||
-          data.forecast.forecastday[3].day.condition.code === 1201 ||
-          data.forecast.forecastday[3].day.condition.code === 1207 ||
-          data.forecast.forecastday[3].day.condition.code === 1243 ||
-          data.forecast.forecastday[3].day.condition.code === 1252
-        ) {
-          conditionImgAfter2Tommorow.src = heavyRain;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1135 ||
-          data.forecast.forecastday[3].day.condition.code === 1147
-        ) {
-          conditionImgAfter2Tommorow.src = fog;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1168 ||
-          data.forecast.forecastday[3].day.condition.code === 1198 ||
-          data.forecast.forecastday[3].day.condition.code === 1213 ||
-          data.forecast.forecastday[3].day.condition.code === 1255
-        ) {
-          conditionImgAfter2Tommorow.src = lightSnow;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        } else if (
-          data.forecast.forecastday[3].day.condition.code === 1114 ||
-          data.forecast.forecastday[3].day.condition.code === 1219 ||
-          data.forecast.forecastday[3].day.condition.code === 1222 ||
-          data.forecast.forecastday[3].day.condition.code === 1225 ||
-          data.forecast.forecastday[3].day.condition.code === 1237 ||
-          data.forecast.forecastday[3].day.condition.code === 1258 ||
-          data.forecast.forecastday[3].day.condition.code === 1261 ||
-          data.forecast.forecastday[3].day.condition.code === 1264
-        ) {
-          conditionImgAfter2Tommorow.src = heavySnow;
-          setTimeout(() => {
-            conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-            after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-          }, 300);
-        }
 
         setTimeout(() => {
           location.classList.replace("opacity-0", "opacity-100");
@@ -1933,17 +1724,6 @@ linktag();
           afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_kph}km/h`;
           afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
           afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
-
-          after2TommorowDay.classList.replace("opacity-0", "opacity-100");
-          after2TommorowDay.textContent = `${forecastDays[3]}`;
-          after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_c}°C`;
-          after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
-          after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
-          after2TommorowMinTemp.textContent = `${data.forecast.forecastday[3].day.mintemp_c}°C`;
-          after2TommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
-          after2TommorowWindSpeed.textContent = `${data.forecast.forecastday[3].day.maxwind_kph}km/h`;
-          after2TommorowRainChance.classList.replace("opacity-0", "opacity-100");
-          after2TommorowRainChance.textContent = `${data.forecast.forecastday[3].day.daily_chance_of_rain}%`;
 
           yesterdayDay.classList.replace("opacity-0", "opacity-100");
           yesterdayMaxTemp.classList.replace("opacity-0", "opacity-100");
@@ -2081,7 +1861,6 @@ linktag();
         setTimeout(() => {
           errorText.classList.replace("opacity-100", "opacity-0");
         }, 1500);
-        console.log(error);
       }
     } else if (ev.type === "DOMContentLoaded") {
       try {
@@ -2128,11 +1907,6 @@ linktag();
           afterTommorowMinTemp.classList.replace("opacity-100", "opacity-0");
           afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
           afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
-          after2TommorowDay.classList.replace("opacity-100", "opacity-0");
-          after2TommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
-          after2TommorowMinTemp.classList.replace("opacity-100", "opacity-0");
-          after2TommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
-          after2TommorowRainChance.classList.replace("opacity-100", "opacity-0");
           yesterdayDay.classList.replace("opacity-100", "opacity-0");
           yesterdayMaxTemp.classList.replace("opacity-100", "opacity-0");
           yesterdayMinTemp.classList.replace("opacity-100", "opacity-0");
@@ -2242,11 +2016,6 @@ linktag();
               afterTommorowMinTemp.classList.replace("opacity-100", "opacity-0");
               afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
               afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
-              after2TommorowDay.classList.replace("opacity-100", "opacity-0");
-              after2TommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
-              after2TommorowMinTemp.classList.replace("opacity-100", "opacity-0");
-              after2TommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
-              after2TommorowRainChance.classList.replace("opacity-100", "opacity-0");
               yesterdayDay.classList.replace("opacity-100", "opacity-0");
               yesterdayMaxTemp.classList.replace("opacity-100", "opacity-0");
               yesterdayMinTemp.classList.replace("opacity-100", "opacity-0");
@@ -2389,17 +2158,6 @@ linktag();
                 afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_kph}km/h`;
                 afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
                 afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
-
-                after2TommorowDay.classList.replace("opacity-0", "opacity-100");
-                after2TommorowDay.textContent = `${forecastDays[3]}`;
-                after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_c}°C`;
-                after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
-                after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
-                after2TommorowMinTemp.textContent = `${data.forecast.forecastday[3].day.mintemp_c}°C`;
-                after2TommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
-                after2TommorowWindSpeed.textContent = `${data.forecast.forecastday[3].day.maxwind_kph}km/h`;
-                after2TommorowRainChance.classList.replace("opacity-0", "opacity-100");
-                after2TommorowRainChance.textContent = `${data.forecast.forecastday[3].day.daily_chance_of_rain}%`;
 
                 yesterdayDay.classList.replace("opacity-0", "opacity-100");
                 yesterdayMaxTemp.classList.replace("opacity-0", "opacity-100");
@@ -2564,11 +2322,6 @@ linktag();
               afterTommorowMinTemp.classList.replace("opacity-100", "opacity-0");
               afterTommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
               afterTommorowRainChance.classList.replace("opacity-100", "opacity-0");
-              after2TommorowDay.classList.replace("opacity-100", "opacity-0");
-              after2TommorowMaxTemp.classList.replace("opacity-100", "opacity-0");
-              after2TommorowMinTemp.classList.replace("opacity-100", "opacity-0");
-              after2TommorowWindSpeed.classList.replace("opacity-100", "opacity-0");
-              after2TommorowRainChance.classList.replace("opacity-100", "opacity-0");
               yesterdayDay.classList.replace("opacity-100", "opacity-0");
               yesterdayMaxTemp.classList.replace("opacity-100", "opacity-0");
               yesterdayMinTemp.classList.replace("opacity-100", "opacity-0");
@@ -2712,17 +2465,6 @@ linktag();
                 afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_mph}mp/h`;
                 afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
                 afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
-
-                after2TommorowDay.classList.replace("opacity-0", "opacity-100");
-                after2TommorowDay.textContent = `${forecastDays[3]}`;
-                after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_f}°F`;
-                after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
-                after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
-                after2TommorowMinTemp.textContent = `${data.forecast.forecastday[3].day.mintemp_f}°F`;
-                after2TommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
-                after2TommorowWindSpeed.textContent = `${data.forecast.forecastday[3].day.maxwind_mph}mp/h`;
-                after2TommorowRainChance.classList.replace("opacity-0", "opacity-100");
-                after2TommorowRainChance.textContent = `${data.forecast.forecastday[3].day.daily_chance_of_rain}%`;
 
                 yesterdayDay.classList.replace("opacity-0", "opacity-100");
                 yesterdayMaxTemp.classList.replace("opacity-0", "opacity-100");
@@ -3508,171 +3250,6 @@ linktag();
               afterTommorowDiv.insertBefore(conditionImgAfterTommorow, afterTommorowDay);
             }, 300);
           }
-          if (
-            data.forecast.forecastday[3].day.condition.code === 1000 &&
-            data.forecast.forecastday[3].day.condition.text.trim() === "Clear"
-          ) {
-            conditionImgAfter2Tommorow.src = clear;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1000 &&
-            data.forecast.forecastday[3].day.condition.text.trim() === "Sunny"
-          ) {
-            conditionImgAfter2Tommorow.src = sunny;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (data.forecast.forecastday[3].day.condition.code === 1003) {
-            conditionImgAfter2Tommorow.src = partlyCloudy;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (data.forecast.forecastday[3].day.condition.code === 1006) {
-            conditionImgAfter2Tommorow.src = cloudy;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (data.forecast.forecastday[3].day.condition.code === 1009) {
-            conditionImgAfter2Tommorow.src = overcast;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (data.forecast.forecastday[3].day.condition.code === 1030) {
-            conditionImgAfter2Tommorow.src = mist;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1053 ||
-            data.forecast.forecastday[3].day.condition.code === 1183 ||
-            data.forecast.forecastday[3].day.condition.code === 1089 ||
-            data.forecast.forecastday[3].day.condition.code === 1240 ||
-            data.forecast.forecastday[3].day.condition.code === 1249 ||
-            data.forecast.forecastday[3].day.condition.code === 1153
-          ) {
-            conditionImgAfter2Tommorow.src = lightRain;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1066 ||
-            data.forecast.forecastday[3].day.condition.code === 1072 ||
-            data.forecast.forecastday[3].day.condition.code === 1210 ||
-            data.forecast.forecastday[3].day.condition.code === 1216
-          ) {
-            conditionImgAfter2Tommorow.src = possibleSnow;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1063 ||
-            data.forecast.forecastday[3].day.condition.code === 1150 ||
-            data.forecast.forecastday[3].day.condition.code === 1180 ||
-            data.forecast.forecastday[3].day.condition.code === 1186
-          ) {
-            conditionImgAfter2Tommorow.src = possibleRain;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1069 ||
-            data.forecast.forecastday[3].day.condition.code === 1204
-          ) {
-            conditionImgAfter2Tommorow.src = possibleSleet;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1087 ||
-            data.forecast.forecastday[3].day.condition.code === 1117 ||
-            data.forecast.forecastday[3].day.condition.code === 1273 ||
-            data.forecast.forecastday[3].day.condition.code === 1276 ||
-            data.forecast.forecastday[3].day.condition.code === 1279 ||
-            data.forecast.forecastday[3].day.condition.code === 1282
-          ) {
-            conditionImgAfter2Tommorow.src = blizzard;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1246 ||
-            data.forecast.forecastday[3].day.condition.code === 1171 ||
-            data.forecast.forecastday[3].day.condition.code === 1189 ||
-            data.forecast.forecastday[3].day.condition.code === 1192 ||
-            data.forecast.forecastday[3].day.condition.code === 1195 ||
-            data.forecast.forecastday[3].day.condition.code === 1201 ||
-            data.forecast.forecastday[3].day.condition.code === 1207 ||
-            data.forecast.forecastday[3].day.condition.code === 1243 ||
-            data.forecast.forecastday[3].day.condition.code === 1252
-          ) {
-            conditionImgAfter2Tommorow.src = heavyRain;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1135 ||
-            data.forecast.forecastday[3].day.condition.code === 1147
-          ) {
-            conditionImgAfter2Tommorow.src = fog;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1168 ||
-            data.forecast.forecastday[3].day.condition.code === 1198 ||
-            data.forecast.forecastday[3].day.condition.code === 1213 ||
-            data.forecast.forecastday[3].day.condition.code === 1255
-          ) {
-            conditionImgAfter2Tommorow.src = lightSnow;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          } else if (
-            data.forecast.forecastday[3].day.condition.code === 1114 ||
-            data.forecast.forecastday[3].day.condition.code === 1219 ||
-            data.forecast.forecastday[3].day.condition.code === 1222 ||
-            data.forecast.forecastday[3].day.condition.code === 1225 ||
-            data.forecast.forecastday[3].day.condition.code === 1237 ||
-            data.forecast.forecastday[3].day.condition.code === 1258 ||
-            data.forecast.forecastday[3].day.condition.code === 1261 ||
-            data.forecast.forecastday[3].day.condition.code === 1264
-          ) {
-            conditionImgAfter2Tommorow.src = heavySnow;
-            setTimeout(() => {
-              conditionImgAfter2Tommorow.classList.replace("opacity-0", "opacity-100");
-
-              after2TommorowDiv.insertBefore(conditionImgAfter2Tommorow, after2TommorowDay);
-            }, 300);
-          }
 
           setTimeout(() => {
             location.classList.replace("opacity-0", "opacity-100");
@@ -3735,17 +3312,6 @@ linktag();
             afterTommorowWindSpeed.textContent = `${data.forecast.forecastday[2].day.maxwind_kph}km/h`;
             afterTommorowRainChance.classList.replace("opacity-0", "opacity-100");
             afterTommorowRainChance.textContent = `${data.forecast.forecastday[2].day.daily_chance_of_rain}%`;
-
-            after2TommorowDay.classList.replace("opacity-0", "opacity-100");
-            after2TommorowDay.textContent = `${forecastDays[3]}`;
-            after2TommorowMaxTemp.textContent = `${data.forecast.forecastday[3].day.maxtemp_c}°C`;
-            after2TommorowMaxTemp.classList.replace("opacity-0", "opacity-100");
-            after2TommorowMinTemp.classList.replace("opacity-0", "opacity-100");
-            after2TommorowMinTemp.textContent = `${data.forecast.forecastday[3].day.mintemp_c}°C`;
-            after2TommorowWindSpeed.classList.replace("opacity-0", "opacity-100");
-            after2TommorowWindSpeed.textContent = `${data.forecast.forecastday[3].day.maxwind_kph}km/h`;
-            after2TommorowRainChance.classList.replace("opacity-0", "opacity-100");
-            after2TommorowRainChance.textContent = `${data.forecast.forecastday[3].day.daily_chance_of_rain}%`;
 
             yesterdayDay.classList.replace("opacity-0", "opacity-100");
             yesterdayMaxTemp.classList.replace("opacity-0", "opacity-100");
