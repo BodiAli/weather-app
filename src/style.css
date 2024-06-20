@@ -12,3 +12,6 @@
 #cards::-webkit-scrollbar {
   display: none;
 }
+video {
+  height: 1000px;
+}
